@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+    <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="/src/assets/css/styles_base.css">
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="header__logo">
+                    <img src="/src/assets/images/logo.png" alt="logo">
+                </div>
+                <div class="header__chat-buttom" v-if="login">
+                    <h1>dad</h1>
+                </div>
+                <div class="header__search-box">
+
+                </div>
+                <div class="header__user-box">
+                    <img src="" alt="">
+                    <a href=""></a>
+                </div>
+                <div class="header__exit-buttom"></div>
+                <div class="header__start-info"
+                v-else="login">
+                <p>zakaz@text.com</p>
+                <p>8-800-555-99-99</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+    var login = new Vue({
+        el: "#header",
+        data: {
+            login: false
+        }
+
+    })
+    </script>
+</body>
+</html>
