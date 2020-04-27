@@ -27,5 +27,5 @@ deploy:
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - bash -c 'ssh-add <(echo "$DEPLOY_PRIVATE_KEY")'
   script:
-    - rsync -avz --port=2231 --delete ./ root@$SERVER_ADDR:/usr/app/source/
+    - rsync -zavP '-e ssh -p 2231' ./ root@$SERVER_ADDR:/usr/app/source/
     - ssh -p2231 root@$SERVER_ADDR "/usr/app/source/deploy.bash -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD -r $CI_REGISTRY -i $CI_REGISTRY_IMAGE"
