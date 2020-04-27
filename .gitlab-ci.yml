@@ -16,7 +16,7 @@ build:
     - docker build -t $CI_REGISTRY_IMAGE:latest .
     - docker push $CI_REGISTRY_IMAGE:latest
 
-deploy-prod:
+deploy:
   stage: deploy
   only:
     - master
