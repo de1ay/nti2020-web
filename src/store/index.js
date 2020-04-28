@@ -1,15 +1,15 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+import session from './session';
 
-export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+Vue.use(Vuex);
+
+const store = {
+  state: {},
   modules: {
-  }
-})
+    session,
+  },
+};
+
+export default new Vuex.Store(store);

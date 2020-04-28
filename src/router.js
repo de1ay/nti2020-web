@@ -6,8 +6,13 @@ Vue.use(VueRouter)
 
   const routes = [
   {
+    path: '/',
+    name: 'index',
+    redirect: { name: 'login' },
+  },  
+  {
     path: '/login',
-    name: 'Login',
+    name: 'login',
     component: Login
   },
 ]

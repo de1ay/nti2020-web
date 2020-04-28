@@ -1,0 +1,41 @@
+@import '_values.scss';
+@import '_fonts.scss';
+
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
+.nti {
+
+  &-button {
+    min-width: 150px;
+    min-height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $primary;
+    background: #fff;
+    font-family: $firaSans;
+    font-size: 16px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    transition: color      ease-in-out .2s,
+                background ease-in-out .2s;
+
+    &:hover {
+      color: #fff;
+      background: $primary;
+      cursor: pointer;
+    }
+
+    &:disabled {
+      color: #fff;
+      background: $primary;
+      border: 1px dashed $neutralLighter;
+      cursor: not-allowed;
+    }
+
+  }
+
+} 

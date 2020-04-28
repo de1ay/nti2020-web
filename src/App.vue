@@ -5,4 +5,8 @@
 </template>
 
 <style lang="scss">
+#app {
+  padding: 0;
+  margin: 0;
+}
 </style>
