@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" href="/src/assets/css/personal_account.css">
+    <link rel="stylesheet" href="/src/assets/css/header.css">
+</head>
+
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header__inner">
+                <img src="/src/assets/images/logo.png" alt="logo" class="header__logo">
+                <!-- Информация для авторизированных -->
+                <nav class="header__nav">
+                    <button class="header__chat-btn">Чаты</button>
+                    <div class="header__search">
+                        <input class="search-txt" type="text" placeholder="Поиск" href=#>
+                        <img src="/src/assets/images/search-icon.png" alt="" class="search-btn">
+                    </div>
+                </nav>
+                <img src="/src/assets/images/user.jpg" alt="" class="header__user-icon">
+                <!-- Отображать для неавторизированных-->
+                <!--<div class="header__start-info">
+                <p>zakaz@text.com</p>
+                <p>8-800-555-99-99</p>
+                </div>
+                -->
+            </div>
+        </div>
+    </header>
+    <section class="account">
+        <div class="container">
+            <div class="account__person-info">
+                <div class="img-box">
+                    <img src="/src/assets/images/user.jpg" alt="" class="account-img">
+                    <div class="under-img-block">
+                        <span class="account-action">
+                            Редактировать
+                        </span>
+                        <img src="/src/assets/images/3_dot.png" alt="" class="setting-icon">
+                    </div>
+                </div>
+                <div class="person-info-box">
+                    <div class="name-box">
+                        <span class="name">
+                            Косарев Всеволод Денисович
+                        </span>
+                        <span class="time">
+                            online
+                        </span>
+                    </div>
+                    <hr class="chat__hr">
+                    <div class="info-blocks">
+                        <div class="info-block">
+                            <span class="block__parameter">
+                                День рождения:
+                            </span>
+                            <span class="block__info">
+                                7 ноября 2001 г.
+                            </span>
+                        </div>
+                        <div class="info-block">
+                            <span class="block__parameter">
+                                Город:
+                            </span>
+                            <span class="block__info">
+                                Санкт-Петербург
+                            </span>
+                        </div>
+                        <div class="info-block">
+                            <span class="block__parameter">
+                                Emain:
+                            </span>
+                            <span class="block__info">
+                                iamvkosarev@gmail.com
+                            </span>
+                        </div>
+                        <div class="info-block">
+                            <span class="block__parameter">
+                                Номер телефона:
+                            </span>
+                            <span class="block__info">
+                                +79514898989
+                            </span>
+                        </div>
+                        <div class="info-block">
+                            <span class="block__parameter">
+                                Описание:
+                            </span>
+                            <span class="block__info">
+                                Ведущий разработчик ПО на предприятии. Стек моих технологий: <br>
+                                - Smart-grid <br>
+                                - Портативный агрегатор-электростанция<br>
+                                - Арктический комплекс "Arctos"<br>
+                                Владею такими языками программирования, как: Python, C++, C#, Java, - знаком с фреймворками Django, Vue.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="account__person-description">
+
+            </div>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</body></html>

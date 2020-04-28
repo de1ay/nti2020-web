@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Главная страница</title>
+    <title>Чаты</title>
     <link rel="stylesheet" href="/src/assets/css/chat.css">
     <link rel="stylesheet" href="/src/assets/css/header.css">
 </head>
@@ -46,7 +46,7 @@
                             <div class="chat-card__info">
                                 <div class="chat-card__section">
                                     <span href="" class="chat__title">#Обший чат компании</span>
-                                    <span class="msg-time">
+                                    <span class="time">
                                         9:22
                                     </span>
                                 </div>
@@ -65,7 +65,7 @@
                             <div class="chat-card__info">
                                 <div class="chat-card__section">
                                     <span href="" class="chat__title">#Чат отдела</span>
-                                    <span class="msg-time">
+                                    <span class="time">
                                         8:44
                                     </span>
                                 </div>
@@ -84,7 +84,7 @@
                             <div class="chat-card__info">
                                 <div class="chat-card__section">
                                     <span href="" class="chat__title">Евгения Старцева</span>
-                                    <span class="msg-time">
+                                    <span class="time">
                                         9:10
                                     </span>
                                 </div>
@@ -100,7 +100,7 @@
                             <div class="chat-card__info">
                                 <div class="chat-card__section">
                                     <span href="" class="chat__title">Альберт Эйнштейн</span>
-                                    <span class="msg-time">
+                                    <span class="time">
                                         12:00
                                     </span>
                                 </div>
@@ -119,7 +119,7 @@
                             <div class="chat-card__info">
                                 <div class="chat-card__section">
                                     <span href="" class="chat__title">Всеволод Косарев</span>
-                                    <span class="msg-time">
+                                    <span class="time">
                                         24 апр
                                     </span>
                                 </div>
@@ -135,7 +135,7 @@
                             <div class="chat-card__info">
                                 <div class="chat-card__section">
                                     <span href="" class="chat__title">Всеволод Косарев</span>
-                                    <span class="msg-time">
+                                    <span class="time">
                                         24 апр
                                     </span>
                                 </div>
@@ -151,7 +151,7 @@
                             <div class="chat-card__info">
                                 <div class="chat-card__section">
                                     <span href="" class="chat__title">Всеволод Косарев</span>
-                                    <span class="msg-time">
+                                    <span class="time">
                                         24 апр
                                     </span>
                                 </div>
@@ -167,7 +167,7 @@
                             <div class="chat-card__info">
                                 <div class="chat-card__section">
                                     <span href="" class="chat__title">Всеволод Косарев</span>
-                                    <span class="msg-time">
+                                    <span class="time">
                                         24 апр
                                     </span>
                                 </div>
@@ -183,7 +183,7 @@
                             <div class="chat-card__info">
                                 <div class="chat-card__section">
                                     <span href="" class="chat__title">Всеволод Косарев</span>
-                                    <span class="msg-time">
+                                    <span class="time">
                                         24 апр
                                     </span>
                                 </div>
@@ -202,7 +202,7 @@
                             <img src="/src/assets/images/chats-imgs/3.jpg" alt="" class="chat-icon this-icon">
                             <div class="this-chat-title">
                                 <span href="" class="this-chat-title-main">Евгения Старцева</span>
-                                <span href="" class="this-chat-title-members">online</span>
+                                <span href="" class="time">online</span>
                                 <!-- Если пользователь-->
                                 <!--
                             <span class="this-chat-presence">Online</span>
@@ -214,33 +214,76 @@
                     <hr class="chat__hr">
                     <div class="massage-feed">
                         <div class="massage">
-                            <img src="" alt="" class="user-icon">
-                            <span class="massage-text">Привет</span>
-                            <span class="massage-time">12:00</span>
-                        </div>
-                        <div class="massage own">
-                            <img src="" alt="" class="user-icon">
-                            <span class="massage-text">Хай</span>
-                            <span class="massage-time">12:10</span>
+                            <img src="/src/assets/images/chats-imgs/3.jpg" alt="" class="chat-icon this-icon">
+                            <div class="massage-text-box">
+                               <div class="msg__header">
+                                <span class="author-msg">Евгения Старцева</span>
+                                <span class="time">12:00</span>
+                                </div>
+                                <span class="massage-text">
+                                    Привет, как дела? Не разбудила?
+                                </span>
+                            </div>
                         </div>
                         <div class="massage">
-                            <img src="" alt="" class="user-icon">
-                            <span class="massage-text">Как дела?</span>
-                            <span class="massage-time">12:30</span>
+                            <img src="/src/assets/images/chats-imgs/3.jpg" alt="" class="chat-icon this-icon">
+                            <div class="massage-text-box">
+                               <div class="msg__header">
+                                <span class="author-msg">Евгения Старцева</span>
+                                <span class="time">12:01</span>
+                                </div>
+                                <span class="massage-text">
+                                    Ты не занят?
+                                </span>
+                            </div>
                         </div>
-                        <div class="massage own">
-                            <img src="" alt="" class="user-icon">
-                            <span class="massage-text">Проект будет к 18:00</span>
-                            <span class="massage-time">12:32</span>
+                        <div class="massage">
+                            <img src="/src/assets/images/user.jpg" alt="" class="chat-icon this-icon">
+                            <div class="massage-text-box">
+                               <div class="msg__header">
+                                <span class="author-msg">Косарев всеволод</span>
+                                <span class="time">12:05</span>
+                                </div>
+                                <span class="massage-text">
+                                    Нет, нужна помощь?
+                                </span>
+                            </div>
+                        </div>
+                        <div class="massage">
+                            <img src="/src/assets/images/chats-imgs/3.jpg" alt="" class="chat-icon this-icon">
+                            <div class="massage-text-box">
+                               <div class="msg__header">
+                                <span class="author-msg">Евгения Старцева</span>
+                                <span class="time">12:06</span>
+                                </div>
+                                <span class="massage-text">
+                                    Да, у нас тут проблемы с товаром на складе. Можешь зайти проверить?
+                                </span>
+                            </div>
+                        </div>
+                        <div class="massage">
+                            <img src="/src/assets/images/user.jpg" alt="" class="chat-icon this-icon">
+                            <div class="massage-text-box">
+                               <div class="msg__header">
+                                <span class="author-msg">Косарев всеволод</span>
+                                <span class="time">12:09</span>
+                                </div>
+                                <span class="massage-text">
+                                    Да, скоро буду.
+                                </span>
+                            </div>
                         </div>
                     </div>
+                    <hr class="chat__hr">
                     <div class="add-massage">
-                        <img src="" alt="" class="add-file-icon">
-                        <input type="text" class="massage-field">
+                        <img src="/src/assets/images/clip.png" alt="" class="clip-icon">
+                        <input type="text" class="massage-field" placeholder="Написать сообщение...">
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-</body></html>
+</body>
+
+</html>
