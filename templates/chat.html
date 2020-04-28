@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Главная страница</title>
-    <link rel="stylesheet" href="/src/assets/css/styles_base.css">
+    <link rel="stylesheet" href="/src/assets/css/chat.css">
     <link rel="stylesheet" href="/src/assets/css/header.css">
 </head>
 
@@ -33,72 +34,210 @@
     <section class="chat">
         <div class="container">
             <div class="chat__inner">
-                <nav class="chat__list">
+                <nav class="chats">
                     <div class="list__nav">
-                        <input type="text" class="chat__search" placeholder="Поиск среди чатов">
-                        <button class="btn-add-chat"></button>
+                        <input type="text" class="chat__search-txt" placeholder="Поиск среди чатов">
+                        <img class="icon-add-chat" src="/src/assets/images/plus_icon.png">
+                    </div>
+                    <hr class="chat__hr">
+                    <div class="all-chats">
                         <div class="chat-card">
-                            <img src="" alt="" class="chat-icon">
-                            <a href="" class="chat__link">#Общий чат компании</a>
+                            <img src="/src/assets/images/chats-imgs/1.jpg" alt="" class="chat-icon">
+                            <div class="chat-card__info">
+                                <div class="chat-card__section">
+                                    <span href="" class="chat__title">#Обший чат компании</span>
+                                    <span class="msg-time">
+                                        9:22
+                                    </span>
+                                </div>
+                                <div class="chat-card__section">
+                                    <span class="msg-text">
+                                        Всё решили
+                                    </span>
+                                    <span class="msg-count">
+                                        3
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div class="chat-card">
-                            <img src="" alt="" class="chat-icon">
-                            <a href="" class="chat__link">#Чат отдела</a>
+                            <img src="/src/assets/images/chats-imgs/2.jpg" alt="" class="chat-icon">
+                            <div class="chat-card__info">
+                                <div class="chat-card__section">
+                                    <span href="" class="chat__title">#Чат отдела</span>
+                                    <span class="msg-time">
+                                        8:44
+                                    </span>
+                                </div>
+                                <div class="chat-card__section">
+                                    <span class="msg-text">
+                                        Меня сегодня не будет
+                                    </span>
+                                    <span class="msg-count">
+                                        1
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div class="chat-card">
-                            <img src="" alt="" class="chat-icon">
-                            <a href="" class="chat__link">Михалыч Дарья</a>
+                            <img src="/src/assets/images/chats-imgs/3.jpg" alt="" class="chat-icon">
+                            <div class="chat-card__info">
+                                <div class="chat-card__section">
+                                    <span href="" class="chat__title">Евгения Старцева</span>
+                                    <span class="msg-time">
+                                        9:10
+                                    </span>
+                                </div>
+                                <div class="chat-card__section">
+                                    <span class="msg-text">
+                                        Привет
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div class="chat-card">
-                            <img src="" alt="" class="chat-icon">
-                            <a href="" class="chat__link">Киндер Юркин</a>
+                            <img src="/src/assets/images/chats-imgs/4.jpg" alt="" class="chat-icon">
+                            <div class="chat-card__info">
+                                <div class="chat-card__section">
+                                    <span href="" class="chat__title">Альберт Эйнштейн</span>
+                                    <span class="msg-time">
+                                        12:00
+                                    </span>
+                                </div>
+                                <div class="chat-card__section">
+                                    <span class="msg-text">
+                                        Ты, наверное, не понял, что я написал я тебе позже объясню.
+                                    </span>
+                                    <span class="msg-count">
+                                        1
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div class="chat-card">
-                            <img src="" alt="" class="chat-icon">
-                            <a href="" class="chat__link">Сникерс Кудинов</a>
+                            <img src="/src/assets/images/user.jpg" alt="" class="chat-icon">
+                            <div class="chat-card__info">
+                                <div class="chat-card__section">
+                                    <span href="" class="chat__title">Всеволод Косарев</span>
+                                    <span class="msg-time">
+                                        24 апр
+                                    </span>
+                                </div>
+                                <div class="chat-card__section">
+                                    <span class="msg-text">
+                                        Привет
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-card">
+                            <img src="/src/assets/images/user.jpg" alt="" class="chat-icon">
+                            <div class="chat-card__info">
+                                <div class="chat-card__section">
+                                    <span href="" class="chat__title">Всеволод Косарев</span>
+                                    <span class="msg-time">
+                                        24 апр
+                                    </span>
+                                </div>
+                                <div class="chat-card__section">
+                                    <span class="msg-text">
+                                        Привет
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-card">
+                            <img src="/src/assets/images/user.jpg" alt="" class="chat-icon">
+                            <div class="chat-card__info">
+                                <div class="chat-card__section">
+                                    <span href="" class="chat__title">Всеволод Косарев</span>
+                                    <span class="msg-time">
+                                        24 апр
+                                    </span>
+                                </div>
+                                <div class="chat-card__section">
+                                    <span class="msg-text">
+                                        Привет
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-card">
+                            <img src="/src/assets/images/user.jpg" alt="" class="chat-icon">
+                            <div class="chat-card__info">
+                                <div class="chat-card__section">
+                                    <span href="" class="chat__title">Всеволод Косарев</span>
+                                    <span class="msg-time">
+                                        24 апр
+                                    </span>
+                                </div>
+                                <div class="chat-card__section">
+                                    <span class="msg-text">
+                                        Привет
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-card">
+                            <img src="/src/assets/images/user.jpg" alt="" class="chat-icon">
+                            <div class="chat-card__info">
+                                <div class="chat-card__section">
+                                    <span href="" class="chat__title">Всеволод Косарев</span>
+                                    <span class="msg-time">
+                                        24 апр
+                                    </span>
+                                </div>
+                                <div class="chat-card__section">
+                                    <span class="msg-text">
+                                        Привет
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </nav>
-                <nav class="chat-info">
+                <div class="chat-main">
                     <div class="this-chat-info">
-                        <img src="" alt="" class="chat-icon">
-                        <div class="this-chat-title">
-                            <a href="" class="this-chat-title-main">Название</a>
-                            <a href="" class="this-chat-title-members">4 участника</a>
-                            <!-- Если пользователь-->
-                            <!--
+                        <div class="header-chat-block">
+                            <img src="/src/assets/images/chats-imgs/3.jpg" alt="" class="chat-icon this-icon">
+                            <div class="this-chat-title">
+                                <span href="" class="this-chat-title-main">Евгения Старцева</span>
+                                <span href="" class="this-chat-title-members">online</span>
+                                <!-- Если пользователь-->
+                                <!--
                             <span class="this-chat-presence">Online</span>
                             -->
+                            </div>
+                        </div><img src="/src/assets/images/search-icon.png" alt="" class="search-btn">
+                        <img src="/src/assets/images/3_dot.png" alt="" class="chat-settings-btn">
+                    </div>
+                    <hr class="chat__hr">
+                    <div class="massage-feed">
+                        <div class="massage">
+                            <img src="" alt="" class="user-icon">
+                            <span class="massage-text">Привет</span>
+                            <span class="massage-time">12:00</span>
                         </div>
-                        <input type="text" class="message-search" placeholder="Найти сообщение">
-                        <img src="" alt="" class="chat-settings">
+                        <div class="massage own">
+                            <img src="" alt="" class="user-icon">
+                            <span class="massage-text">Хай</span>
+                            <span class="massage-time">12:10</span>
+                        </div>
+                        <div class="massage">
+                            <img src="" alt="" class="user-icon">
+                            <span class="massage-text">Как дела?</span>
+                            <span class="massage-time">12:30</span>
+                        </div>
+                        <div class="massage own">
+                            <img src="" alt="" class="user-icon">
+                            <span class="massage-text">Проект будет к 18:00</span>
+                            <span class="massage-time">12:32</span>
+                        </div>
                     </div>
-                </nav>
-                <div class="massage-feed">
-                    <div class="massage">
-                        <img src="" alt="" class="user-icon">
-                        <span class="massage-text">Привет</span>
-                        <span class="massage-time">12:00</span>
+                    <div class="add-massage">
+                        <img src="" alt="" class="add-file-icon">
+                        <input type="text" class="massage-field">
                     </div>
-                    <div class="massage own">
-                        <img src="" alt="" class="user-icon">
-                        <span class="massage-text">Хай</span>
-                        <span class="massage-time">12:10</span>
-                    </div>
-                    <div class="massage">
-                        <img src="" alt="" class="user-icon">
-                        <span class="massage-text">Как дела?</span>
-                        <span class="massage-time">12:30</span>
-                    </div>
-                    <div class="massage own">
-                        <img src="" alt="" class="user-icon">
-                        <span class="massage-text">Проект будет к 18:00</span>
-                        <span class="massage-time">12:32</span>
-                    </div>
-                </div>
-                <div class="add-massage">
-                    <img src="" alt="" class="add-file-icon">
-                    <input type="text" class="massage-field">
                 </div>
             </div>
         </div>
