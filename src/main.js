@@ -15,10 +15,10 @@ Vue.use(Toasted, {
 import Icon from 'vue-awesome/components/Icon';
 Vue.component('v-icon', Icon);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

@@ -49,6 +49,7 @@ export default {
             password: this.password,
           });
           this.$toasted.success('Вход выполнен');
+          this.$router.replace({ name: 'home' });
         } catch (e) {
           if (e.length) {
             e.forEach(err => this.$toasted.error(err));
@@ -61,7 +62,7 @@ export default {
   },
   created() {
     if (this.isAuthorized) {
-      this.$router.replace({ name: 'main' });
+      this.$router.replace({ name: 'home' });
     }
   },
 };
