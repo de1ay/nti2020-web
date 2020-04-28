@@ -1,0 +1,158 @@
+/* Chat */
+.chat{
+    padding-top: 80px;
+    width: 100%;
+    height: 100vh;
+}
+
+.chat__inner{
+    padding-top: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content:space-between;
+}
+
+/* Доска чатов */
+.chats{
+    border-radius: 20px;
+    width:30%;
+    height: auto;
+    background: white;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.list__nav{
+    display: flex;
+    padding: 15px;
+    padding-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+/*    background: red;*/
+}
+
+.chat__search-txt{
+    width: 75%;
+    font-family: Bahnschrift;
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    color: #7c7c7c;
+    font-size: 15px;
+}
+.icon-add-chat{
+    z-index: 1000;
+    background: white;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+}
+.chat__hr{
+    margin: 0;
+    background-color: red; /* Цвет линии */
+    color: red; /* Цвет линии для IE6-7 */
+    width: 100%; /* Толщина линии */
+}
+.all-chats{
+    overflow-y: auto;
+    max-height: 70vh;
+}
+
+.chat-card{
+    padding: 0 15px;
+    width: 100%;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+}
+.chat-icon{
+    flex: 0;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    background: url(/src/assets/images/user.jpg) 0 0;
+}
+.chat-card__info{
+    width: 100%;
+    padding-left: 10px;
+}
+.chat-card__section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.chat__title{
+    font-weight: bold;
+    text-overflow: ellipsis;
+}
+.msg-time{
+    color: #727272;
+}
+.msg-text{
+    width: 100%;
+    text-overflow: ellipsis;
+}
+.msg-count{
+    text-align: center;
+    color: #ffffff;
+    background: #727272;
+    padding: 0 5px;
+    padding-top: 2px;
+    border-radius: 8px;
+}
+/* Отдельный чат */
+.chat-main{
+    min-width: 68%;
+    border-radius: 20px;
+    width:30%;
+    height: auto;
+    background: white;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.this-chat-info{
+    display: flex;
+    align-items: center;
+    padding: 7px;
+}
+.header-chat-block{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-left: 5%;
+}
+.this-chat-title{
+    display: flex;
+    text-align: center;
+     flex-direction: column;
+}
+.this-chat-title-main{
+
+}
+.this-chat-title-members{
+    font-size: 12px;
+    color: #727272;
+}
+.this-icon{
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+.msg-search{
+    width: 30%;
+}
+
+.chat-settings-btn{
+    width: 17px;
+    margin: 0px 20px;
+}
