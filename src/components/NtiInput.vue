@@ -99,7 +99,7 @@ export default {
   }
 
   &__field {
-    margin: -4px 0 0 -2px;
+    margin: -3px 0 0 -2px;
     width: 100%;
     color: #fff;
     background: transparent;

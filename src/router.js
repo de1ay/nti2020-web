@@ -1,6 +1,7 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Login from '@/views/Login.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Login from '@/views/Login.vue';
+import Logout from '@/views/Logout.vue';
 
 Vue.use(VueRouter)
 
@@ -14,6 +15,11 @@ Vue.use(VueRouter)
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: Logout
   },
 ]
 

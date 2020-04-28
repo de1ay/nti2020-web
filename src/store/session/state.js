@@ -1,5 +1,5 @@
 const state = {
-  token: null,
+  token: localStorage.getItem('token'),
 };
 
 export default state;
