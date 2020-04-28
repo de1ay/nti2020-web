@@ -1,14 +1,25 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Login from '@/views/Login.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Login from '@/views/Login.vue';
+import Logout from '@/views/Logout.vue';
 
 Vue.use(VueRouter)
 
   const routes = [
   {
+    path: '/',
+    name: 'index',
+    redirect: { name: 'login' },
+  },  
+  {
     path: '/login',
-    name: 'Login',
+    name: 'login',
     component: Login
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: Logout
   },
 ]
 
