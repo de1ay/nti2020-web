@@ -16,7 +16,7 @@ html, body {
     align-items: center;
     color: $primary;
     background: #fff;
-    font-family: $firaSans;
+    font-family: $bahnschrift;
     font-size: 16px;
     border: 1px solid #fff;
     border-radius: 10px;
@@ -30,9 +30,9 @@ html, body {
     }
 
     &:disabled {
-      color: #fff;
-      background: $primary;
-      border: 1px dashed $neutralLighter;
+      color: $primary;
+      background: $neutral;
+      border: 1px dashed $neutral;
       cursor: not-allowed;
     }
 

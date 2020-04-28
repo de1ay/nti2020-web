@@ -86,15 +86,15 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  border-bottom: 1px solid $neutralLighter;
+  border-bottom: 1px solid $neutral;
   transition: border ease-in-out .2s;
 
   &__label {
     order: -1;
     margin-bottom: 5px;
-    color: $neutralLighter;
+    color: $neutral;
     font-size: 13px;
-    font-family: $firaSans;
+    font-family: $bahnschrift;
     transition: color ease-in-out .2s;
   }
 
@@ -104,12 +104,12 @@ export default {
     color: #fff;
     background: transparent;
     font-size: 16px;
-    font-family: $roboto;
+    font-family: $calibriLight;
     border: none;
     outline: none;
 
     &::placeholder {
-      color: $neutralLighter;
+      color: $neutral;
     }
 
     &[type="text"] {
