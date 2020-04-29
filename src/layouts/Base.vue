@@ -4,7 +4,7 @@
       <div class="header__inner">
         <img src="@/assets/images/logo.jpg" alt="logo" class="header__logo">
         <nav class="header__nav">
-          <nav-link v-for="link in navLinks" :key="link.to" :to="link.to" :text="link.text"/>
+          <nav-link v-for="link in filteredLinks" :key="link.to" :to="link.to" :text="link.text"/>
         </nav>
         <div class="header__user">
           <img src="@/assets/images/user.jpg" alt="" class="header__user-icon">
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import NavLink from '@/components/NavLink.vue';
 
 export default {
@@ -27,9 +29,13 @@ export default {
   },
   data() {
     return {
-      navLinks: [{
+      navLinks: [/*{
         to: 'home',
         text: 'Главная',
+      }, */{
+        to: 'users',
+        text: 'Пользователи',
+        showCondition: this.isUserAdmin,
       }, {
         to: 'chat',
         text: 'Чат',
@@ -38,6 +44,12 @@ export default {
         text: 'Оборудование',
       }],
     };
+  },
+  computed: {
+    ...mapGetters('session', ['isUserAdmin']),
+    filteredLinks() {
+      return this.navLinks.filter(link => link.showCondition !== false);
+    }
   },
 };
 </script>
@@ -49,7 +61,7 @@ export default {
   align-items: center;
 
   .header {
-    z-index: 1000;
+    z-index: 100;
     position: sticky;
     top: 0;
     left: 0;

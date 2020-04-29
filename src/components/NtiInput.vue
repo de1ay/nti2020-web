@@ -1,19 +1,25 @@
 <template>
   <div class="nti-input" :class="{
-    'nti-input--active': isInputStateActive}">
+    'nti-input--active': isInputStateActive,
+    'nti-input--primary': $props.primary}">
+    <div class="nti-input__container">
 
-    <!-- Text/Password -->
-    <input class="nti-input__field" v-if="$props.type === 'text' || $props.type === 'password'"
-      v-model="rawVal" :type="$props.type" :placeholder="$props.placeholder"
-      :disabled="$props.disabled"
-      @focus="setInputState(InputStates.active)"
-      @blur="setInputState(InputStates.default)">
+      <!-- bicon -->
+      <v-icon class="nti-input__bicon" v-if="$props.bicon" :name="$props.bicon"/>
 
-    <!-- Default label -->
-    <label class="nti-input__label">
-      {{ $props.label }}
-    </label>
+      <!-- Text/Password -->
+      <input class="nti-input__field" v-if="$props.type === 'text' || $props.type === 'password'"
+        v-model="rawVal" :type="$props.type" :placeholder="$props.placeholder"
+        :disabled="$props.disabled"
+        @focus="setInputState(InputStates.active)"
+        @blur="setInputState(InputStates.default)">
 
+      <!-- Default label -->
+      <label class="nti-input__label nti-12">
+        {{ $props.label }}
+      </label>
+
+    </div>
   </div>
 </template>
 
@@ -41,6 +47,14 @@ export default {
     label: {
       type: String,
       default: '',
+    },
+    bicon: {
+      type: String,
+      default: '',
+    },
+    primary: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -82,16 +96,41 @@ export default {
   box-sizing: border-box;
   margin-bottom: 15px;
   min-height: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  border-bottom: 1px solid $neutral;
-  transition: border ease-in-out .2s;
+
+  &__container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid $neutral;
+    transition: border ease-in-out .2s;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: #fff;
+      transition: width ease-in-out .2s;
+    }
+    
+  }
+
+  &__bicon {
+    margin-top: -1px;
+    padding-right: 4px;
+    height: 12px;
+    color: $neutral;
+    transition: color ease-in-out .2s;
+  }
 
   &__label {
     order: -1;
-    margin-bottom: 5px;
+    margin-bottom: -2px;
     color: $neutral;
     font-size: 13px;
     font-family: $bahnschrift;
@@ -99,8 +138,8 @@ export default {
   }
 
   &__field {
-    margin: -3px 0 0 -2px;
-    width: 100%;
+    margin: 0 0 2px -2px;
+    flex: 1;
     color: #fff;
     background: transparent;
     font-size: 16px;
@@ -124,10 +163,67 @@ export default {
   }
   
   &--active {
-    border-bottom: 1px solid #fff;
 
-    .nti-input__label {
-      color: #fff;
+    .nti-input__container {
+
+      &::after {
+        width: 100%;
+      }
+
+      .nti-input__bicon {
+        color: #fff;
+      }
+
+      .nti-input__label {
+        color: #fff;
+      }
+
+    }
+
+  }
+
+  &--primary {
+
+    .nti-input {
+
+      &__container {
+        border-color: $neutralDarker;
+
+        &::after {
+          background: $primary;
+        }
+
+      }
+
+      &__bicon {
+        color: $neutralDarker;
+      }
+
+      &__label {
+        color: $neutralDarker;
+      }
+
+      &__field {
+        color: #000;
+
+        &::placeholder {
+          color: $neutralDarker;
+        }
+
+      }
+
+    }
+
+  }
+
+  &--primary.nti-input--active {
+
+    .nti-input__container {
+
+      .nti-input__bicon,.nti-input__label {
+        color: $primary;
+      }
+
     }
 
   }

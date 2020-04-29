@@ -4,6 +4,9 @@ import router from './router.js'
 import store from './store'
 import './axios';
 
+import 'vue-awesome/icons/times';
+import 'vue-awesome/icons/search';
+
 import Toasted from 'vue-toasted';
 Vue.use(Toasted, {
   position: 'top-right',
@@ -14,6 +17,9 @@ Vue.use(Toasted, {
 
 import Icon from 'vue-awesome/components/Icon';
 Vue.component('v-icon', Icon);
+
+import { directive as onClickOutside } from 'vue-on-click-outside';
+Vue.directive('on-click-outside', onClickOutside);
 
 Vue.config.productionTip = false;
 
