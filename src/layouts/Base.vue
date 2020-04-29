@@ -41,7 +41,7 @@ export default {
       }, */{
         to: 'profile',
         text: 'Профиль',
-        params: { id: this.user.id },
+        params: { id: this.user.id || 1 },
       }, {
         to: 'users',
         text: 'Пользователи',

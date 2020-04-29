@@ -4,7 +4,7 @@ const actions = {
   async getUser(store) {
     const { commit } = store;
     return await axios({
-      url: `/api/users/me`,
+      url: `/api/users/me/`,
       method: 'GET',
     })
       .then(resp => {

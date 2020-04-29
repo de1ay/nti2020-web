@@ -10,6 +10,15 @@ const mutations = {
         ...userInfo,
       }
     })
+  },
+  setUser(state, payload) {
+    state.user = payload;
+  },
+  setUserInfo(state, payload) {
+    state.user = {
+      ...state.user,
+      ...payload,
+    }
   }
 };
 
