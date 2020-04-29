@@ -1,6 +1,6 @@
 <template>
   <div class="modal">
-    <div class="modal-content" v-on-click-outside="close">
+    <div class="modal-content">
       <div class="header">
         <div class="title">{{$props.title}}</div>
         <button class="nti-button nti-button--white" @click="close">
@@ -56,7 +56,7 @@ export default {
 
   &-content {
     z-index: 1001;
-    padding: 20px 10px;
+    padding: 20px 10px 10px 10px;
     width: 900px;
     background: #fff;
     border-radius: 10px;

@@ -1,11 +1,22 @@
 <template>
   <div class="nti-input" :class="{
     'nti-input--active': isInputStateActive,
-    'nti-input--primary': $props.primary}">
+    'nti-input--primary': $props.primary,
+    'nti-input--switch': $props.type === 'switch'}">
     <div class="nti-input__container">
 
       <!-- bicon -->
       <v-icon class="nti-input__bicon" v-if="$props.bicon" :name="$props.bicon"/>
+
+      <!-- Switch -->
+      <input v-if="$props.type === 'switch'" type="checkbox" v-model="rawVal"
+        class="nti-input__field" :disabled="$props.disabled">
+
+       <!-- File --> 
+      <input class="nti-input__field" v-if="$props.type === 'file'"
+        :type="$props.type" :placeholder="$props.placeholder"
+        :disabled="$props.disabled" :accept="$props.accept"
+        @change="onFileChange">
 
       <!-- Text/Password -->
       <input class="nti-input__field" v-if="$props.type === 'text' || $props.type === 'password'"
@@ -14,8 +25,14 @@
         @focus="setInputState(InputStates.active)"
         @blur="setInputState(InputStates.default)">
 
+      <!-- Label for switch -->
+      <label v-if="$props.type === 'switch'" class="nti-input__label nti-12"
+        @click="$emit('input', !rawVal)">
+        {{ $props.label }}
+      </label>
+
       <!-- Default label -->
-      <label class="nti-input__label nti-12">
+      <label v-else class="nti-input__label nti-12">
         {{ $props.label }}
       </label>
 
@@ -39,6 +56,10 @@ export default {
     type: {
       required: true,
       type: String,
+    },
+    accept: {
+      type: String,
+      default: '',
     },
     placeholder: {
       type: String,
@@ -87,6 +108,11 @@ export default {
         this.inputState = InputStates.default;
       }
     },
+    onFileChange(e) {
+      const files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.$emit('input', files[0]);
+    },
   },
 };
 </script>
@@ -95,7 +121,6 @@ export default {
 .nti-input {
   box-sizing: border-box;
   margin-bottom: 15px;
-  min-height: 40px;
 
   &__container {
     position: relative;
@@ -176,6 +201,100 @@ export default {
 
       .nti-input__label {
         color: #fff;
+      }
+
+    }
+
+  }
+
+  &--switch {
+    
+    .nti-input {
+
+      &__container {
+        border: none;
+      }
+
+      &__field {
+        display: none;
+
+        + .nti-input__label {
+          display: block;
+          margin-bottom: 23px;
+          min-width: 70px;
+          color: $neutralDarker;
+          user-select: none;
+        }
+
+        &:checked {
+
+          + .nti-input__label {
+
+            &:after {
+              background: $primaryLighter;
+              cursor: pointer;
+            }
+
+            &:before {
+              left: 30px;
+              background: $primaryLight;
+              cursor: pointer;
+            }
+
+          }
+
+        }
+
+        + .nti-input__label {
+
+          &:after {
+            z-index: 2;
+            content: ' ';
+            position: absolute;
+            top: 16px;
+            left: 0;
+            width: 70px;
+            height: 21px;
+            border-radius: 15px;
+            background: $secondaryLight;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+          }
+
+          &:before {
+            z-index: 3;
+            content: ' ';
+            position: absolute;
+            top: 16px;
+            left: 0;
+            width: 40px;
+            height: 21px;
+            border-radius: 15px;
+            background: $secondary;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+          }
+
+        }
+
+        &:disabled {
+
+          + .nti-input__label {
+
+              &:after { background: $neutralLighter; }
+              &:before { background: $neutralDark; }
+
+          }
+
+          + .nti-input__label {
+
+            &:after { background: $neutralLighter; }
+            &:before { background: $neutralDark; }
+
+          }
+
+        }
+
       }
 
     }

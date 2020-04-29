@@ -4,7 +4,8 @@
       <div class="header__inner">
         <img src="@/assets/images/logo.jpg" alt="logo" class="header__logo">
         <nav class="header__nav">
-          <nav-link v-for="link in filteredLinks" :key="link.to" :to="link.to" :text="link.text"/>
+          <nav-link v-for="link in filteredLinks" :key="link.to" :to="link.to" :text="link.text"
+            :params="link.params"/>
         </nav>
         <div class="header__user">
           <img src="@/assets/images/user.jpg" alt="" class="header__user-icon">
@@ -36,6 +37,7 @@ export default {
         to: 'users',
         text: 'Пользователи',
         showCondition: this.isUserAdmin,
+        params: { page: 1 },
       }, {
         to: 'chat',
         text: 'Чат',
@@ -56,9 +58,11 @@ export default {
 
 <style lang="scss" scoped>
 .layout {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: $neutralLightest;
 
   .header {
     z-index: 100;

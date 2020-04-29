@@ -4,9 +4,40 @@
       <user-modal/>
     </modal>
     <div class="navbar">
-      <nti-input class="nti-3" v-model="search" type="text"
+      <nti-input class="nti-3 nti--margin_0" v-model="search" type="text"
         placeholder="Начните ввод для поиска" bicon="search" primary/>
-      <button class="nti-button" @click="setModal(true)">Добавить пользователя</button>
+      <button class="nti-button nti-button--transparent" @click="setModal(true)">
+        Добавить пользователя
+      </button>
+    </div>
+    <div class="users-content">
+      <div class="user" v-for="user in filteredUsers" :key="user.id">
+        <div class="user-avatar">
+          <img :src="user.avatar || require('@/assets/images/no_photo.png')" alt="Нет фото">
+        </div>
+        <div class="user-info">
+          <div class="info-rows">
+            <div class="info-row">
+              <div class="row-title">Логин:</div>
+              <div class="row-value">{{ user.username }}</div>
+            </div>
+            <div class="info-row">
+              <div class="row-title">Email:</div>
+              <div class="row-value">{{ user.email }}</div>
+            </div>
+            <div class="info-divider"></div>
+            <div class="info-row">
+              <div class="row-title">ФИО:</div>
+              <div class="row-value">
+                {{ !!user.surname ? `${user.surname} ${user.name} ${user.patronymic}` : 'Не задано' }}
+              </div>
+            </div>
+          </div>
+          <div class="info-tags">
+            <div class="info-tag" v-if="user.is_staff">Администратор</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -34,6 +65,9 @@ export default {
   },
   computed: {
     ...mapState('users', ['users']),
+    filteredUsers() {
+      return this.users.filter(user => user.username.indexOf(this.search) === 0);
+    },
   },
   methods: {
     ...mapActions('users', ['getUsers']),
@@ -42,12 +76,122 @@ export default {
       this.editableUser = editableUser;
     },
   },
-  mounted() {
+  created() {
     this.getUsers();
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.users {
 
+  .navbar {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .user {
+    box-sizing: border-box;
+    margin-bottom: 30px;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background: #fff;
+    border-radius: 10px;
+    
+
+    &-avatar {
+
+      > img {
+        height: 100px;
+        width: 100px;
+        border-radius: 10px;
+        object-fit: cover;
+      }
+
+    }
+
+    &-info {
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+
+      .info {
+
+        &-tag {
+          box-sizing: border-box;
+          right: 0;
+          margin-left: 20px;
+          padding: 5px 20px;
+          height: 24px;
+          color: #fff;
+          background: $primary;
+          font-family: $bahnschrift;
+          font-size: 12px;
+          border-radius: 10px;
+        }
+
+        &-divider {
+          margin: 5px 0 0 20px;
+          height: 40px;
+          width: 1px;
+          background: $neutralDarker;
+          border-radius: 10px;
+        }
+
+        &-rows {
+          max-height: 70px;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start;
+          flex-wrap: wrap;
+        }
+
+        &-row {
+          margin-left: 20px;
+          min-width: 200px;
+          height: 50%;
+          display: flex;
+          align-items: flex-start;
+
+          .row {
+
+            &-title {
+              min-width: 60px;
+              color: $neutralDarker;
+              font-family: $bahnschrift;
+              font-size: 16px;
+            }
+
+            &-value {
+              font-family: $bahnschrift;
+              font-size: 16px;
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
 </style>

@@ -48,7 +48,7 @@ const routes = [{
       name: 'equipment',
       component: Equipment,
     }, {
-      path: 'users',
+      path: 'users/:page',
       name: 'users',
       component: Users,
     }],

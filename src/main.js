@@ -4,6 +4,8 @@ import router from './router.js'
 import store from './store'
 import './axios';
 
+import 'vue-awesome/icons/edit';
+import 'vue-awesome/icons/trash';
 import 'vue-awesome/icons/times';
 import 'vue-awesome/icons/search';
 
