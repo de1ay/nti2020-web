@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Система телемониторинга</title>
+    <link rel="stylesheet" href="/src/assets/css/telemetry_system.css">
+    <link rel="stylesheet" href="/src/assets/css/header.css">
+</head>
+
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header__inner">
+                <img src="/src/assets/images/logo.png" alt="logo" class="header__logo">
+                <!-- Информация для авторизированных -->
+                <nav class="header__nav">
+                    <button class="header__chat-btn">Чаты</button>
+                    <div class="header__search">
+                        <input class="search-txt" type="text" placeholder="Поиск" href=#>
+                        <img src="/src/assets/images/search-icon.png" alt="" class="search-btn">
+                    </div>
+                </nav>
+                <img src="/src/assets/images/user.jpg" alt="" class="header__user-icon">
+                <!-- Отображать для неавторизированных-->
+                <!--<div class="header__start-info">
+                <p>zakaz@text.com</p>
+                <p>8-800-555-99-99</p>
+                </div>
+                -->
+            </div>
+        </div>
+    </header>
+    <section class="t-system">
+        <div class="container">
+            <div class="t-system__inner">
+                <div class="t-system__header">
+                    <span class="title">
+                        Система телеметрии
+                    </span>
+                </div>
+                <div class="device-container">
+                    <div class="device">
+                        <p class="device__title">
+                            Machine 1
+                        </p>
+                        <hr class="hr">
+                        <div class="info-blocks">
+                            <div class="info-block">
+                                <span class="block__parameter">
+                                    Температура:
+                                </span>
+                                <span class="block__info">
+                                    36,9°C
+                                </span>
+                            </div>
+                            <div class="info-block">
+                                <span class="block__parameter">
+                                    Уровень вибрации:
+                                </span>
+                                <span class="block__info">
+                                    0,5434 м/с2
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</body></html>
