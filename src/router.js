@@ -10,6 +10,7 @@ import Logout from '@/views/Logout.vue';
 import Home from '@/views/Home.vue';
 import Chat from '@/views/Chat.vue';
 import Users from '@/views/Users.vue';
+import Profile from '@/views/Profile.vue';
 import Equipment from '@/views/Equipment.vue';
 
 Vue.use(VueRouter);
@@ -39,6 +40,10 @@ const routes = [{
       path: 'home',
       name: 'home',
       component: Home,
+    }, {
+      path: 'profile/:id',
+      name: 'profile',
+      component: Profile,
     }, {
       path: 'chat',
       name: 'chat',

@@ -5,7 +5,7 @@
     </modal>
     <div class="navbar">
       <nti-input class="nti-3 nti--margin_0" v-model="search" type="text"
-        placeholder="Начните ввод для поиска" bicon="search" primary/>
+        placeholder="Поиск по логину" bicon="search" primary/>
       <button class="nti-button nti-button--transparent" @click="setModal(true)">
         Добавить пользователя
       </button>

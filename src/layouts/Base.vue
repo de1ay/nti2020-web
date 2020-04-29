@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 import NavLink from '@/components/NavLink.vue';
 
@@ -28,12 +28,21 @@ export default {
   components: {
     NavLink,
   },
-  data() {
-    return {
-      navLinks: [/*{
+  computed: {
+    ...mapState('session', ['user']),
+    ...mapGetters('session', ['isUserAdmin']),
+    filteredLinks() {
+      return this.navLinks.filter(link => link.showCondition !== false);
+    },
+    navLinks() {
+      return  [/*{
         to: 'home',
         text: 'Главная',
       }, */{
+        to: 'profile',
+        text: 'Профиль',
+        params: { id: this.user.id },
+      }, {
         to: 'users',
         text: 'Пользователи',
         showCondition: this.isUserAdmin,
@@ -44,14 +53,11 @@ export default {
       }, {
         to: 'equipment',
         text: 'Оборудование',
-      }],
-    };
-  },
-  computed: {
-    ...mapGetters('session', ['isUserAdmin']),
-    filteredLinks() {
-      return this.navLinks.filter(link => link.showCondition !== false);
-    }
+      }, {
+        to: 'logout',
+        text: 'Выход',
+      }];
+    },
   },
 };
 </script>
