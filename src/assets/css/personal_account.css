@@ -61,9 +61,10 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
+/* Блок с информацией */
 .person-info-box{
-    margin-left: 310px;
-    width: 860px;
+    margin-left: 295px;
+    width: 870px;
     height: 330px;
     padding: 15px;
     border-radius: 20px;
