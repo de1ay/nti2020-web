@@ -1,15 +1,15 @@
 /* Account */
-.crm{
+.crm {
     padding-top: 80px;
     width: 100%;
     height: 100vh;
 }
 
-.crm__inner{
+.crm__inner {
     width: 100%;
 }
 
-.crm__header{
+.crm__header {
     width: 100%;
     padding: 5px 10px;
     display: flex;
@@ -17,25 +17,25 @@
     align-items: center;
     background: white;
     border-radius: 20px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.title{
+.title {
     width: 100%;
     font-size: 18px;
     text-align: center;
-/*    font-weight: bold;*/
-    padding-left: 15%;
+    /*    font-weight: bold;*/
+    padding-left: 18%;
 }
 
-.crm__header__search{
+.crm__header__search {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 
-.crm__search-txt{
+.crm__search-txt {
     font-family: Bahnschrift;
     border: none;
     background: none;
@@ -44,14 +44,16 @@
     color: #7c7c7c;
     font-size: 15px;
 }
-.icon-add{
+
+.icon-add {
     z-index: 1000;
     background: white;
     padding: 8px;
     width: 30px;
     height: 30px;
 }
-.hr{
+
+.hr {
     margin: 0;
     background-color: black;
     color: #000000;
@@ -59,24 +61,28 @@
 }
 
 /* Контейнер для заказов */
-.orders-container{
+.orders-container {
     width: 100%;
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: flex-start;
 }
 
-.orders-box{
+.orders-box {
+    margin: 0 5px 20px;
+    width: 268px;
     padding-bottom: 10px;
-    background: white;
+    /*
     border-radius: 20px;
-    width: 24%;
+    background: white;
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+*/
 }
 
 
-.orders__header{
+.orders__header {
     padding: 0 15px;
     height: 40px;
     width: 100%;
@@ -84,13 +90,19 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
-.orders__status{
+
+.orders__status {
     width: 100%;
     padding-left: 10%;
     text-align: center;
 }
-.orders{
+
+.orders {
     width: 100%;
     max-height: 450px;
     display: flex;
@@ -98,24 +110,28 @@
     flex-wrap: wrap;
     overflow-y: auto;
 }
-.order{
+
+.order {
     min-height: 10px;
     margin: 10px 0;
     width: 90%;
     padding: 10px 0;
     border-radius: 10px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    background: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
-.order__title{
+
+.order__title {
     margin: 0 10px 5px;
     font-size: 15px;
     text-align: justify;
 }
-.info-blocks{
-   widows: 100%;
+
+.info-blocks {
+    widows: 100%;
 }
 
-.info-block{
+.info-block {
     width: 100%;
     margin: 10px 0;
     padding: 0 10px;
@@ -123,12 +139,12 @@
     justify-content: space-between;
 }
 
-.block__parameter{
+.block__parameter {
     color: #727272;
     width: 200px;
 }
 
-.block__info{
+.block__info {
     width: 90%;
     text-align: justify;
 }
