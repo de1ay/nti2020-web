@@ -2,7 +2,8 @@
   <div class="profile">
     <div class="profile-avatar_container">
       <div class="profile-avatar">
-        <img :src="user.avatar || require('@/assets/images/no_photo.png')" alt="Нет фото" class="avatar">
+        <img :src="user.avatar ? `${apiUrl}${user.avatar}` : require('@/assets/images/no_photo.png')"
+          alt="Нет фото" class="avatar">
       </div>
       <div class="nti-button" v-show="false" v-if="isUserAdmin || me.id === user.id">
         Редактировать
@@ -49,6 +50,11 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Profile',
+  data() {
+    return {
+      apiUrl: process.env.VUE_APP_API_ENDPOINT,
+    };
+  },
   computed: {
     ...mapState('users', ['user']),
     ...mapState('session', {me: 'user'}),

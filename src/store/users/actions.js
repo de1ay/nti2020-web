@@ -72,7 +72,7 @@ const actions = {
   async getUserInfo(store, id) {
     const { commit } = store;
     return await axios({
-      url: `/api/users-info/${id}/`,
+      url: `/api/users-info/user/${id}/`,
       method: 'GET',
     })
       .then(resp => {

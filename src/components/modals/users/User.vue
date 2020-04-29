@@ -10,7 +10,7 @@
       v-model.trim="user.password" placeholder="Введите пароль" primary/>
     <nti-input class="nti-5" type="password" label="Повторите пароль"
       v-model.trim="user.password_confirm" placeholder="Повторите пароль" primary/>
-    <nti-input class="nti-2" type="file" label="Фото"
+    <nti-input class="nti-2" type="file" label="Фото" accept=".png,.jpeg,.jpg"
       v-model="file" placeholder="Загрузить" primary/>
     <nti-input class="nti-4" type="text" label="Фамилия"
       v-model.trim="user.surname" placeholder="Введите фамилию" primary/>

@@ -11,7 +11,8 @@
       </button>
     </div>
     <div class="users-content">
-      <div class="user" v-for="user in filteredUsers" :key="user.id">
+      <div class="user" v-for="user in filteredUsers" :key="user.id"
+        @click="$router.push({name: 'profile', params: { id: user.primary_id }})">
         <div class="user-avatar">
           <img :src="user.avatar || require('@/assets/images/no_photo.png')" alt="Нет фото">
         </div>
@@ -31,6 +32,10 @@
               <div class="row-value">
                 {{ !!user.surname ? `${user.surname} ${user.name} ${user.patronymic}` : 'Не задано' }}
               </div>
+            </div>
+            <div class="info-row">
+              <div class="row-title">Должность: </div>
+              <div class="row-value">{{ user.position ? user.position : 'Не задана' }}</div>
             </div>
           </div>
           <div class="info-tags">
@@ -61,6 +66,7 @@ export default {
     return {
       modal: false,
       search: '',
+      apiUrl: process.env.VUE_APP_API_ENDPOINT,
     }
   },
   computed: {
@@ -109,7 +115,10 @@ export default {
     align-items: flex-start;
     background: #fff;
     border-radius: 10px;
-    
+
+    &:hover {
+      cursor: pointer;
+    }
 
     &-avatar {
 
@@ -172,7 +181,7 @@ export default {
           .row {
 
             &-title {
-              min-width: 60px;
+              min-width: 100px;
               color: $neutralDarker;
               font-family: $bahnschrift;
               font-size: 16px;
