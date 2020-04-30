@@ -96,14 +96,16 @@ export default {
     }
 
     .card-row {
+      max-width: 275px;
       width: 100%;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: flex-start;
       align-items: flex-start;
       font-family: $bahnschrift;
 
       &:not(:last-child){
-        margin-bottom: 5px;
+        margin-bottom: 10px;
       }
 
       .row-title {
