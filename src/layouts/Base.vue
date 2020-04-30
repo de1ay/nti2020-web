@@ -8,7 +8,8 @@
             :params="link.params"/>
         </nav>
         <div class="header__user">
-          <img src="@/assets/images/user.jpg" alt="" class="header__user-icon">
+          <img :src="user.avatar || require('@/assets/images/no_photo.png') "
+            alt="" class="header__user-icon">
         </div>
       </div>
     </header>

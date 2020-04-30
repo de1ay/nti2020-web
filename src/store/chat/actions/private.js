@@ -1,20 +1,17 @@
 import axios from 'axios';
 
-import Private from './actions/private';
-
 const actions = {
-  ...Private,
-  async getGroupChats(store) {
+  async getRecievedMessages(store) {
     const { commit } = store;
     return await axios({
-      url: `/chat/chat-group/`,
+      url: `/chat/messages/`,
       method: 'GET',
     })
       .then(async resp => {
         if (resp.data.error !== undefined) {
           return Promise.reject(resp.data.error);
         }
-        commit('setGroupChats', resp.data.results);
+        commit('setRecievedMessages', resp.data);
         return Promise.resolve(resp.data);
       })
       .catch(err => {
@@ -25,10 +22,10 @@ const actions = {
         return Promise.reject(data);
       });
   },
-  async getGroupChat(store, chatID) {
-    const { rootGetters, commit, dispatch } = store;
+  async getPrivateChat(store, userID) {
+    const { rootGetters, commit, dispatch,  } = store;
     return await axios({
-      url: `/chat/chat-message/${chatID}/`,
+      url: `/chat/messages/user/${userID}/`,
       method: 'GET',
     })
       .then(async resp => {
@@ -36,8 +33,7 @@ const actions = {
           return Promise.reject(resp.data.error);
         }
         commit('setActiveChat', resp.data);
-        await dispatch('getGroupChats');
-        commit('setActiveChatInfo', rootGetters['groupChatByID'][chatID]);
+        commit('setActiveChatInfo', rootGetters['users/userByPrimaryID'][userID]);
         return Promise.resolve(resp.data);
       })
       .catch(err => {

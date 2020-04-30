@@ -1,6 +1,9 @@
 const mutations = {
   setUsers(state, payload) {
-    state.users = payload;
+    state.users = payload.map(user => ({
+      primary_id: user.id,
+      ...user,
+    }));
   },
   setUsersInfo(state, payload) {
     state.users = state.users.map(user => {
