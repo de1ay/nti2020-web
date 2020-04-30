@@ -45,6 +45,31 @@ const actions = {
         return Promise.reject(data);
       });
   },
+  async sendChatMessage(store, {message, chatID}) {
+    const { rootState,  } = store;
+    return await axios({
+      url: `/chat/chat-message/`,
+      method: 'POST',
+      data: {
+        sender: rootState.session.user.primary_id,
+        chat: chatID,
+        message,
+      }
+    })
+      .then(async resp => {
+        if (resp.data.error !== undefined) {
+          return Promise.reject(resp.data.error);
+        }
+        return Promise.resolve(resp.data);
+      })
+      .catch(err => {
+        const data = err.response.data;
+        if (data.detail) {
+          return Promise.reject(data.detail);
+        }
+        return Promise.reject(data);
+      });
+  }
 };
 
 export default actions;

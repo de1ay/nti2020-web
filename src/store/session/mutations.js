@@ -5,14 +5,16 @@ const mutations = {
   setUser(state, payload) {
     state.user = {
       primary_id: payload.id,
+      avatar: state.user.avatar,
       ...payload,
     };
   },
   setUserInfo(state, payload) {
     state.user = {
-      primary_id: state.user.id,
       ...state.user,
       ...payload,
+      primary_id: state.user.id,
+      avatar: payload.avatar,
     }
   }
 };

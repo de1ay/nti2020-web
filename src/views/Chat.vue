@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <div class="active_chat">
+    <div class="active_chat" v-if="$route.params.id">
       <div class="active_chat-info">
         <img :src="activeChatInfo.logo || require('@/assets/images/no_photo.png')"
           alt="Нет фото" class="active_chat-avatar">
@@ -49,12 +49,14 @@
                   : userByPrimaryID[msg.sender].username
                 )
               }}
+              <div class="message-date">
+                {{ getDisplayDate(msg.timestamp) }}
+              </div>
             </div>
             <div class="message-text">
               {{ msg.message }}
             </div>
           </div>
-          <div class="message-time"></div>
         </div>
       </div>
       <div class="active_chat-input">
@@ -82,6 +84,12 @@ export default {
       recievedMessagesRefresh: null,
       groupChatsRefresh: null,
       activeChatRefresh: null,
+      dateFormatOptions: {
+        day: 'numeric',
+        month: 'long',
+        hour: 'numeric',
+        minute: 'numeric',
+      },
     };
   },
   computed: {
@@ -97,6 +105,12 @@ export default {
       'groupChatByID',
       'privateChats'
     ]),
+    isGroupChat() {
+      return this.$route.path.indexOf('group') !== -1;
+    },
+    isPrivateChat() {
+      return this.$route.path.indexOf('private') !== -1;
+    }
   },
   methods: {
     ...mapActions('users', ['getUsers']),
@@ -105,27 +119,48 @@ export default {
       'getGroupChats',
       'getPrivateChat',
       'getRecievedMessages',
+      'sendChatMessage',
+      'sendPrivateMessage',
     ]),
-    sendMessage() {
-      console.log(this.message);
+    getDisplayDate(data) {
+      let date = new Date(data);
+      return date.toLocaleString('ru-RU', this.dateFormatOptions);
+    },
+    async sendMessage() {
+      if (!this.message || this.message.length === 0) return;
+      try {
+        if (this.isPrivateChat) {
+          await this.sendPrivateMessage({
+            userID: this.activeChatInfo.id,
+            message: this.message,
+          })
+          this.getPrivateChat(this.$route.params.id);
+        }
+        if (this.isGroupChat) {
+          await this.sendChatMessage({
+            chatID: this.activeChatInfo.id,
+            message: this.message,
+          })
+          this.getGroupChat(this.$route.params.id);
+        }
+      } catch (e) {
+          console.log(e);
+          this.$toasted.error('Ошибка при отправке сообщения');
+        }
       this.message = undefined;
     },
     groupChatClick(chatID) {
       if (!this.$route.params.id
-        || (
-          this.$route.path.indexOf('group') === -1
-          && this.$route.params.id !== chatID.toString()
-        )
+        || this.isPrivateChat
+        || this.$route.params.id !== chatID.toString()
       ) {
         this.$router.push({path: `/portal/chat/group/${chatID}`})
       }
     },
     privateChatClick(chatID) {
       if (!this.$route.params.id
-        || (
-          this.$route.path.indexOf('private') === -1
-          && this.$route.params.id !== chatID.toString()
-        )
+        || this.isGroupChat
+        || this.$route.params.id !== chatID.toString()
       ) {
         this.$router.push({path: `/portal/chat/private/${chatID}`})
       }
@@ -143,12 +178,12 @@ export default {
       this.recievedMessagesRefresh = setInterval(() => this.getRecievedMessages(), 5000);
       this.groupChatsRefresh = setInterval(() => this.getGroupChats(), 5000);
 
-      if (this.$route.path.indexOf('private') !== -1 && this.$route.params.id) {
+      if (this.isPrivateChat && this.$route.params.id) {
         this.getPrivateChat(this.$route.params.id);
         this.activeChatRefresh = setInterval(() => this.getPrivateChat(this.$route.params.id), 5000);
       }
 
-      if (this.$route.path.indexOf('group') !== -1 && this.$route.params.id) {
+      if (this.isGroupChat && this.$route.params.id) {
         this.getGroupChat(this.$route.params.id);
         this.activeChatRefresh = setInterval(() => this.getGroupChat(this.$route.params.id), 5000);
       }
@@ -171,6 +206,7 @@ export default {
 
 <style lang="scss" scoped>
 .chat {
+  margin-bottom: 30px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -187,6 +223,7 @@ export default {
       margin-bottom: 10px;
       padding: 20px;
       width: 200px;
+      height: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -219,7 +256,7 @@ export default {
 
     &-rows {
       padding: 20px;
-      max-height: 1000px;
+      max-height: 530px;
       width: 200px;
       display: flex;
       flex-direction: column;
@@ -273,10 +310,10 @@ export default {
 
         &-message {
           width: 100%;
-          max-height: 17px;
+          max-height: 16px;
           color: $neutralDarker;
           font-family: $bahnschrift;
-          font-size: 16px;
+          font-size: 14px;
           text-align: left;
           word-wrap: none;
           white-space: nowrap;
@@ -320,8 +357,10 @@ export default {
     &-messages {
       margin-bottom: 10px;
       padding: 20px;
+      max-height: 416px;
       background: #fff;
       border-radius: 10px;
+      overflow-y: auto;
 
       .message {
         display: flex;
@@ -334,13 +373,15 @@ export default {
 
         &-avatar {
           margin-right: 10px;
-          width: 39px;
-          height: 39px;
+          width: 40px;
+          height: 40px;
           border-radius: 40px;
           object-fit: cover;
         }
 
         &-content {
+          max-width: 534px;
+          min-width: 534px;
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
@@ -348,15 +389,25 @@ export default {
         }
 
         &-title {
-          margin-bottom: 5px;
+          margin: 3px 0 5px 0;
+          display: flex;
+          justify-content: space-between;
           color: $neutralDarker;
           font-family: $bahnschrift;
-          font-size: 14px;
+          font-size: 12px;
+        }
+
+        &-time {
+          color: $neutralDarker;
+          font-family: $bahnschrift;
+          font-size: 12px;
         }
 
         &-text {
+          max-width: 534px;
           font-family: $bahnschrift;
           font-size: 14px;
+          word-break: break-word;
         }
 
       }

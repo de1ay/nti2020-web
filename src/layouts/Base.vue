@@ -51,7 +51,6 @@ export default {
       }, {
         to: 'users',
         text: 'Пользователи',
-        showCondition: this.isUserAdmin,
         params: { page: 1 },
       }, {
         to: 'chat',
