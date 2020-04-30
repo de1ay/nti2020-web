@@ -65,10 +65,13 @@ const actions = {
         return Promise.resolve(resp.data);
       })
       .catch(resp => {
+        commit('setToken', null);
+        localStorage.removeItem('token');
+        axios.defaults.headers.common.Authorization = ``;
         if (resp.non_field_errors) {
-          return Promise.reject(resp.non_field_errors);
+          return Promise.resolve(resp.non_field_errors);
         }
-        return Promise.reject(resp);
+        return Promise.resolve(resp);
       });
   },
 };

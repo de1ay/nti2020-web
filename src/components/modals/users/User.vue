@@ -1,16 +1,16 @@
 <template>
   <div class="nti-form">
-    <nti-input class="nti-5" type="text" label="Логин"
+    <nti-input class="nti-4" type="text" label="Логин"
       v-model.trim="user.username" placeholder="Введите логин" primary/>
-    <nti-input class="nti-5" type="text" label="Email"
+    <nti-input class="nti-4" type="text" label="Email"
       v-model.trim="user.email" placeholder="Введите email" primary/>
-    <nti-input class="nti-2" type="switch" label="Администратор"
+    <nti-input class="nti-4" type="switch" label="Администратор"
       v-model="user.is_staff"/>
-    <nti-input class="nti-5" type="password" label="Пароль"
+    <nti-input class="nti-4" type="password" label="Пароль"
       v-model.trim="user.password" placeholder="Введите пароль" primary/>
-    <nti-input class="nti-5" type="password" label="Повторите пароль"
+    <nti-input class="nti-4" type="password" label="Повторите пароль"
       v-model.trim="user.password_confirm" placeholder="Повторите пароль" primary/>
-    <nti-input class="nti-2" type="file" label="Фото" accept=".png,.jpeg,.jpg"
+    <nti-input class="nti-4" type="file" label="Фото" accept=".png,.jpeg,.jpg"
       v-model="file" placeholder="Загрузить" primary/>
     <nti-input class="nti-4" type="text" label="Фамилия"
       v-model.trim="user.surname" placeholder="Введите фамилию" primary/>
@@ -88,16 +88,16 @@ export default {
         let user = await this.createUser(this.user);
         this.$toasted.success('Пользователь добавлен');
         this.$emit('submit', user);
-        this.$emit('close');
+        this.hideModal();
       } catch (err) {
-        this.$toasted.error(err.message);
+        err.message ? this.$toasted.error(err.message) : this.$toasted.error('Поля заполнены неверно');
       }
     },
     async editUser() {
       try {
         await this.updateUser(this.user);
         this.$toasted.success('Изменения сохранены');
-        this.$emit('close');
+        this.hideModal();
       } catch (err) {
         this.$toasted.error(err.message);
       }

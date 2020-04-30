@@ -11,7 +11,7 @@
       </button>
     </div>
     <div class="users-content">
-      <div class="user" v-for="user in filteredUsers" :key="user.id"
+      <div class="user" v-for="user in filteredUsers" :key="user.primary_id"
         @click="$router.push({name: 'profile', params: { id: user.primary_id }})">
         <div class="user-avatar">
           <img :src="user.avatar || require('@/assets/images/no_photo.png')" alt="Нет фото">
