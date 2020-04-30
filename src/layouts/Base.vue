@@ -8,7 +8,7 @@
             :params="link.params"/>
         </nav>
         <div class="header__user">
-          <img :src="user.avatar || require('@/assets/images/no_photo.png') "
+          <img :src="user.avatar ? `${apiUrl}${user.avatar}` : require('@/assets/images/no_photo.png')"
             alt="" class="header__user-icon">
         </div>
       </div>
@@ -29,6 +29,11 @@ export default {
   components: {
     NavLink,
   },
+  data() {
+    return {
+      apiUrl: process.env.VUE_APP_API_ENDPOINT,
+    };
+  },
   computed: {
     ...mapState('session', ['user']),
     ...mapGetters('session', ['isUserAdmin']),
@@ -42,7 +47,7 @@ export default {
       }, */{
         to: 'profile',
         text: 'Профиль',
-        params: { id: this.user.id || 1 },
+        params: { id: this.user.primary_id || 1 },
       }, {
         to: 'users',
         text: 'Пользователи',

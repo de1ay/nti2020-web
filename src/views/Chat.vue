@@ -6,14 +6,16 @@
         <v-icon class="title-action" name="plus"/>
       </div>
       <div class="chats-rows">
-        <div class="chats-row" v-for="chat in groupChats" :key="`group-${chat.id}`">
+        <div class="chats-row" v-for="chat in groupChats" :key="`group-${chat.id}`"
+          @click="groupChatClick(chat.id)">
           <img class="row-avatar"
             :src="chat.avatar"/>
           <div class="row-content">
             <div class="row-title">{{ chat.name }}</div>
           </div>
         </div>
-        <div class="chats-row" v-for="chat in privateChats" :key="`private-${chat.userID}`">
+        <div class="chats-row" v-for="chat in privateChats" :key="`private-${chat.userID}`"
+          @click="privateChatClick(chat.userID)">
           <img class="row-avatar"
             :src="(userByPrimaryID[chat.userID] && userByPrimaryID[chat.userID].avatar)
               || require('@/assets/images/no_photo.png')"/>
@@ -40,8 +42,12 @@
             || require('@/assets/images/no_photo.png')"/>
           <div class="message-content">
             <div class="message-title">
-              {{ msg.sender === user.primary_id ? 
-                (user.surname ? `${user.surname} ${user.name}` : user.username) : activeChatInfo.title
+              {{ msg.sender === user.primary_id ? 'Вы' 
+                : (
+                  (userByPrimaryID[msg.sender] && userByPrimaryID[msg.sender].name) ? 
+                  `${userByPrimaryID[msg.sender].surname} ${userByPrimaryID[msg.sender].name}` 
+                  : userByPrimaryID[msg.sender].username
+                )
               }}
             </div>
             <div class="message-text">
@@ -104,28 +110,61 @@ export default {
       console.log(this.message);
       this.message = undefined;
     },
+    groupChatClick(chatID) {
+      if (!this.$route.params.id
+        || (
+          this.$route.path.indexOf('group') === -1
+          && this.$route.params.id !== chatID.toString()
+        )
+      ) {
+        this.$router.push({path: `/portal/chat/group/${chatID}`})
+      }
+    },
+    privateChatClick(chatID) {
+      if (!this.$route.params.id
+        || (
+          this.$route.path.indexOf('private') === -1
+          && this.$route.params.id !== chatID.toString()
+        )
+      ) {
+        this.$router.push({path: `/portal/chat/private/${chatID}`})
+      }
+    },
+    clearIntervals() {
+      if (this.groupChatsRefresh) clearInterval(this.groupChatsRefresh);
+      if (this.recievedMessagesRefresh) clearInterval(this.recievedMessagesRefresh);
+      if (this.activeChatRefresh) clearInterval(this.activeChatRefresh);
+    },
+    async initialize() {
+      await this.getUsers();
+      this.getGroupChats();
+      this.getRecievedMessages(this.$route.params.id);
+
+      this.recievedMessagesRefresh = setInterval(() => this.getRecievedMessages(), 5000);
+      this.groupChatsRefresh = setInterval(() => this.getGroupChats(), 5000);
+
+      if (this.$route.path.indexOf('private') !== -1 && this.$route.params.id) {
+        this.getPrivateChat(this.$route.params.id);
+        this.activeChatRefresh = setInterval(() => this.getPrivateChat(this.$route.params.id), 5000);
+      }
+
+      if (this.$route.path.indexOf('group') !== -1 && this.$route.params.id) {
+        this.getGroupChat(this.$route.params.id);
+        this.activeChatRefresh = setInterval(() => this.getGroupChat(this.$route.params.id), 5000);
+      }
+    }
+  },
+  watch: {
+    async $route() {
+      this.clearIntervals();
+      await this.initialize();
+    }
   },
   async mounted() {
-    await this.getUsers();
-    this.getGroupChats();
-    this.getRecievedMessages(this.$route.params.id);
-
-    this.recievedMessagesRefresh = setInterval(() => this.getRecievedMessages(), 5000);
-    this.groupChatsRefresh = setInterval(() => this.getGroupChats(), 5000);
-
-    if (this.$route.path.indexOf('private') !== -1 && this.$route.params.id) {
-      this.getPrivateChat(this.$route.params.id);
-      this.activeChatRefresh = setInterval(() => this.getPrivateChat(this.$route.params.id), 5000);
-    }
-
-    if (this.$route.path.indexOf('group') !== -1 && this.$route.params.id) {
-      this.getGroupChat(this.$route.params.id);
-      this.activeChatRefresh = setInterval(() => this.getGroupChat(this.$route.params.id), 5000);
-    }
-
+    await this.initialize();
   },
   beforeDestroy() {
-    if (this.activeChatRefresh) clearInterval(this.activeChatRefresh);
+    this.clearIntervals();
   }
 };
 </script>
@@ -195,6 +234,10 @@ export default {
       display: flex;
       align-items: center;
 
+      &:hover {
+        cursor: pointer;
+      }
+
       &:not(:last-child) {
         margin-bottom: 20px;
       }
@@ -211,15 +254,15 @@ export default {
 
         &-content {
           max-width: 150px;
+          height: 40px;
           display: flex;
           flex-direction: column;
-          justify-content: flex-start;
-          align-items: center;
+          justify-content: center;
+          align-items: stretch;
         }
 
         &-title {
           max-width: 150px;
-          height: 20px;
           font-family: $bahnschrift;
           font-size: 14px;
           word-wrap: none;
@@ -230,7 +273,7 @@ export default {
 
         &-message {
           width: 100%;
-          height: 20px;
+          max-height: 17px;
           color: $neutralDarker;
           font-family: $bahnschrift;
           font-size: 16px;

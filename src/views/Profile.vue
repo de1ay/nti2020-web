@@ -63,6 +63,11 @@ export default {
   methods: {
     ...mapActions('users', ['getUser']),
   },
+  watch: {
+    $route() {
+      this.getUser(this.$route.params.id);
+    }
+  },
   mounted() {
     this.getUser(this.$route.params.id);
   },
