@@ -1,16 +1,10 @@
 const GeoPattern = require('geopattern');
 
-function sortMessagesByDate(a, b) {
-  a = new Date(a.timestamp);
-  b = new Date(b.timestamp);
-  return a>b ? 1 : (a<b ? -1 : 0)
-}
-
 const mutations = {
   setGroupChats(state, payload) {
     state.groupChats = payload.map(chat => ({
       ...chat,
-      avatar: GeoPattern.generate(chat.name).toDataUri(),
+      avatar: GeoPattern.generate(`${chat.id}-${chat.name}`).toDataUri(),
     }));
   },
   setRecievedMessages(state, payload) {
@@ -29,7 +23,7 @@ const mutations = {
       state.activeChatInfo.id    = payload.id;
       state.activeChatInfo.title = payload.name;
       state.activeChatInfo.owner = payload.owner;
-      state.activeChatInfo.logo  = GeoPattern.generate(payload.name).toDataUri();
+      state.activeChatInfo.logo  = GeoPattern.generate(`${payload.id}-${payload.name}`).toDataUri();
     }
   }
 };

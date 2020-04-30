@@ -36,10 +36,11 @@
           {{ activeChatInfo.title }}
         </div>
       </div>
-      <div class="active_chat-messages">
+      <div class="active_chat-messages" ref="chatMessages">
         <div class="message" v-for="msg in activeChat" :key="msg.id">
           <img class="message-avatar" :src="(userByPrimaryID[msg.sender] && userByPrimaryID[msg.sender].avatar)
-            || require('@/assets/images/no_photo.png')"/>
+            || require('@/assets/images/no_photo.png')"
+            @click="$router.push({name: 'profile', params: { id: msg.sender }})"/>
           <div class="message-content">
             <div class="message-title">
               {{ msg.sender === user.primary_id ? 'Вы' 
@@ -122,6 +123,9 @@ export default {
       'sendChatMessage',
       'sendPrivateMessage',
     ]),
+    scrollToLastMessage() {
+      this.$refs.chatMessages.scrollTop = this.$refs.chatMessages.scrollHeight;
+    },
     getDisplayDate(data) {
       let date = new Date(data);
       return date.toLocaleString('ru-RU', this.dateFormatOptions);
@@ -179,12 +183,14 @@ export default {
       this.groupChatsRefresh = setInterval(() => this.getGroupChats(), 5000);
 
       if (this.isPrivateChat && this.$route.params.id) {
-        this.getPrivateChat(this.$route.params.id);
+        await this.getPrivateChat(this.$route.params.id);
+        this.scrollToLastMessage();
         this.activeChatRefresh = setInterval(() => this.getPrivateChat(this.$route.params.id), 5000);
       }
 
       if (this.isGroupChat && this.$route.params.id) {
-        this.getGroupChat(this.$route.params.id);
+        await this.getGroupChat(this.$route.params.id);
+        this.scrollToLastMessage();
         this.activeChatRefresh = setInterval(() => this.getGroupChat(this.$route.params.id), 5000);
       }
     }
@@ -193,6 +199,11 @@ export default {
     async $route() {
       this.clearIntervals();
       await this.initialize();
+    },
+    activeChat(to, from) {
+      if (to.length > from.length) {
+        let to = setTimeout(() => this.scrollToLastMessage(), 50);
+      }
     }
   },
   async mounted() {
@@ -377,6 +388,11 @@ export default {
           height: 40px;
           border-radius: 40px;
           object-fit: cover;
+
+          &:hover {
+            cursor: pointer;
+          }
+
         }
 
         &-content {
