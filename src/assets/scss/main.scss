@@ -83,6 +83,16 @@ html, body {
 
     }
 
+    &--secondary {
+      color: $secondary;
+
+      &:hover {
+        background: $secondary;
+        border: 1px solid $secondary;
+      }
+
+    }
+
     &--transparent {
       background: transparent;
       border-color: transparent;
@@ -110,6 +120,7 @@ html, body {
     .form {
 
       &-actions {
+        display: flex;
 
         > .nti-button {
           margin-right: 10px;

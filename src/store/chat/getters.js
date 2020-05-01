@@ -17,7 +17,15 @@ const getters = {
       }
     }
     return result;
-  }, {})
+  }, {}),
+  usersByChatID: state => state.chatUsers.reduce((result, bind) => {
+    if (result[bind.chat]) {
+      result[bind.chat].push(bind);
+    } else {
+      result[bind.chat] = [bind];
+    }
+    return result;
+  }, {}),
 };
 
 export default getters;

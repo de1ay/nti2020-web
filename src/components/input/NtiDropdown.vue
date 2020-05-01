@@ -197,7 +197,7 @@ export default {
 
     &--placeholder {
       flex: 1;
-      color: $neutralDark;
+      color: $neutralDarker;
 
       &:hover {
         cursor: pointer;

@@ -22,10 +22,17 @@
       <!-- Dropdown -->
       <nti-dropdown v-if="$props.type === 'dropdown'" v-model="rawVal"
         :placeholder="$props.placeholder" :items="$props.items" :disabled="$props.disabled"
-        :modifiers="$props.modifiers"
         @focus="setInputState(InputStates.active)"
         @unfocus="setInputState(InputStates.default)"
         @select="onSelect"/>
+
+      <!-- Autocomplete -->
+      <nti-autocomplete v-if="$props.type === 'autocomplete'" v-model="rawVal"
+        :placeholder="$props.placeholder" :items="$props.items" :disabled="$props.disabled"
+        @focus="setInputState(InputStates.active)" @enter="onEnterPress"
+        @unfocus="setInputState(InputStates.default)"
+        @select="onSelect"/>
+
 
       <!-- Text/Password -->
       <input class="nti-input__field" v-if="$props.type === 'text' || $props.type === 'password'"
@@ -54,6 +61,7 @@
 
 <script>
 import NtiDropdown from '@/components/input/NtiDropdown.vue';
+import NtiAutocomplete from '@/components/input/NtiAutocomplete.vue';
 
 const InputStates = {
   default: 0,
@@ -65,6 +73,7 @@ export default {
   name: 'NtiInput',
   components: {
     NtiDropdown,
+    NtiAutocomplete,
   },
   props: {
     value: {

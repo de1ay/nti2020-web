@@ -33,6 +33,7 @@ const actions = {
           return Promise.reject(resp.data.error);
         }
         commit('setActiveChat', resp.data);
+        dispatch('getChatUsers');
         await dispatch('getGroupChats');
         commit('setActiveChatInfo', getters['groupChatByID'][chatID]);
         return Promise.resolve(resp.data);
@@ -150,6 +151,75 @@ const actions = {
         user: userID,
         chat: chatID,
         receive_notifications: notifications,
+      }
+    })
+      .then(async resp => {
+        if (resp.data.error !== undefined) {
+          return Promise.reject(resp.data.error);
+        }
+        return Promise.resolve(resp.data);
+      })
+      .catch(err => {
+        const data = err.response.data;
+        if (data.detail) {
+          return Promise.reject(data.detail);
+        }
+        return Promise.reject(data);
+      });
+  },
+  async removeUserFromChat(store, instanceID) {
+    return await axios({
+      url: `/chat/chat-users/${instanceID}`,
+      method: 'DELETE',
+    })
+      .then(async resp => {
+        if (resp.data.error !== undefined) {
+          return Promise.reject(resp.data.error);
+        }
+        return Promise.resolve(resp.data);
+      })
+      .catch(err => {
+        const data = err.response.data;
+        if (data.detail) {
+          return Promise.reject(data.detail);
+        }
+        return Promise.reject(data);
+      });
+  },
+  async enableNotifications(store, { instanceID, chatID }) {
+    const { rootState } = store;
+    return await axios({
+      url: `/chat/chat-users/${instanceID}/`,
+      method: 'PUT',
+      data: {
+        id: chatID,
+        receive_notifications: true,
+        user: rootState.session.user.primary_id,
+      }
+    })
+      .then(async resp => {
+        if (resp.data.error !== undefined) {
+          return Promise.reject(resp.data.error);
+        }
+        return Promise.resolve(resp.data);
+      })
+      .catch(err => {
+        const data = err.response.data;
+        if (data.detail) {
+          return Promise.reject(data.detail);
+        }
+        return Promise.reject(data);
+      });
+  },
+  async disableNotifications(store, { instanceID, chatID }) {
+    const { rootState } = store;
+    return await axios({
+      url: `/chat/chat-users/${instanceID}/`,
+      method: 'PUT',
+      data: {
+        id: chatID,
+        receive_notifications: false,
+        user: rootState.session.user.primary_id,
       }
     })
       .then(async resp => {

@@ -6,6 +6,7 @@ const state = {
     title: '',
     avatar: '',
   },
+  chatUsers: [],
 };
 
 export default state;

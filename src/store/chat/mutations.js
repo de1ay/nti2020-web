@@ -7,6 +7,9 @@ const mutations = {
       avatar: GeoPattern.generate(`${chat.id}-${chat.name}`).toDataUri(),
     }));
   },
+  setChatUsers(state, payload) {
+    state.chatUsers = payload;
+  },
   setRecievedMessages(state, payload) {
     state.recievedMessages = payload;
   },

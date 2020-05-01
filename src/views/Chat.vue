@@ -1,7 +1,8 @@
 <template>
   <div class="chat">
-    <modal v-if="modal" title="Новый групповой чат" @close="setModal()">
-      <chat-modal/>
+    <modal v-if="modal" :title="title" @close="setModal()">
+      <chat-modal v-if="isChatModal" :data="editableData"/>
+      <chat-users-modal v-else :data="editableData"/>
     </modal>
     <div class="chats">
       <div class="chats-title">
@@ -48,6 +49,16 @@
         <div class="active_chat-title" v-else>
           {{ activeChatInfo.title }}
         </div>
+        <div class="active_chat-actions" v-if="isGroupChat">
+          <v-icon class="active_chat-action" name="users"
+            v-if="activeChatInfo.owner === user.primary_id && activeChatInfo.id !== 1"
+            @click="setModal(true, groupChatByID[activeChatInfo.id], false)"/>
+          <v-icon class="active_chat-action active_chat-action--small" name="edit"
+            v-if="activeChatInfo.owner === user.primary_id && activeChatInfo.id !== 1"
+            @click="setModal(true, groupChatByID[activeChatInfo.id])"/>
+          <v-icon class="active_chat-action" name="volume-up"/>
+          <v-icon class="active_chat-action" name="volume-mute"/>
+        </div>
       </div>
       <div class="active_chat-messages" ref="chatMessages">
         <div class="active_chat-empty" v-if="activeChat.length === 0">
@@ -92,6 +103,7 @@ import NtiInput from '@/components/NtiInput.vue';
 
 import Modal from '@/components/Modal.vue';
 import ChatModal from '@/components/modals/chats/Chat.vue';
+import ChatUsersModal from '@/components/modals/chats/ChatUsers.vue';
 
 export default {
   name: 'Chat',
@@ -99,11 +111,13 @@ export default {
     NtiInput,
     Modal,
     ChatModal,
+    ChatUsersModal,
   },
   data() {
     return {
       modal: false,
-      editableChat: null,
+      isChatModal: true,
+      editableData: null,
       message: '',
       recievedMessagesRefresh: null,
       groupChatsRefresh: null,
@@ -134,6 +148,13 @@ export default {
     },
     isPrivateChat() {
       return this.$route.path.indexOf('private') !== -1;
+    },
+    title() {
+      if (this.isChatModal) {
+        return this.editableData ? 'Редактирование чата' : 'Новый групповой чат';
+      } else {
+        return `Пользователи чата "${this.activeChatInfo.title}"`;
+      }
     }
   },
   methods: {
@@ -146,9 +167,10 @@ export default {
       'sendChatMessage',
       'sendPrivateMessage',
     ]),
-    setModal(modal=false, editableChat=null) {
+    setModal(modal=false, editableData=null, isChatModal=true) {
       this.modal = modal;
-      this.editableChat = editableChat;
+      this.editableData = editableData;
+      this.isChatModal = isChatModal;
       if (!this.modal) {
         this.getGroupChats();
       }
@@ -374,12 +396,37 @@ export default {
 
     &-info {
       margin-bottom: 10px;
-      padding: 10px 0;
+      padding: 10px 20px;
       display: flex;
       justify-content: center;
       align-items: center;
       background: #fff;
       border-radius: 10px;
+    }
+
+    &-actions {
+      margin-left: auto;
+    }
+
+    &-action {
+      width: 17px;
+      height: 17px;
+      color: $neutralDarker;
+      transition: color ease-in-out .2s;
+
+      &:hover {
+        color: $primary;
+        cursor: pointer;
+      }
+
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+
+      &--small {
+        width: 15px;
+      }
+
     }
 
     &-empty {

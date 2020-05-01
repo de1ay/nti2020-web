@@ -7,6 +7,9 @@
       <button class="nti-button" @click="submit">
         Сохранить изменения
       </button>
+      <button class="nti-button nti-button--secondary" @click="removeChat" v-if="$props.data">
+        Удалить
+      </button>
     </div>
   </div>
 </template>
@@ -17,7 +20,7 @@ import { mapActions } from 'vuex';
 import NtiInput from '@/components/NtiInput.vue';
 
 export default {
-  name: 'User',
+  name: 'Chat',
   components: {
     NtiInput,
   },
@@ -37,7 +40,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('chat', ['createChat', 'updateChat']),
+    ...mapActions('chat', ['createChat', 'updateChat', 'deleteChat']),
     async submit() {
       if (this.chat.id) {
         await this.editChat();
@@ -55,11 +58,21 @@ export default {
         err.message ? this.$toasted.error(err.message) : this.$toasted.error('Поля заполнены неверно');
       }
     },
-    async editUser() {
+    async editChat() {
       try {
         await this.updateChat(this.chat);
         this.$toasted.success('Изменения сохранены');
         this.hideModal();
+      } catch (err) {
+        err.message ? this.$toasted.error(err.message) : this.$toasted.error('Поля заполнены неверно');
+      }
+    },
+    async removeChat() {
+      try {
+        await this.deleteChat(this.chat.id);
+        this.$toasted.success('Чат удалён');
+        this.hideModal();
+        this.$router.push({ path: '/portal/chat' });
       } catch (err) {
         this.$toasted.error(err.message);
       }
@@ -74,5 +87,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>
