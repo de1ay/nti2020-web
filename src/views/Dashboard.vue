@@ -6,7 +6,7 @@
                     <span class="title">
                         Система телеметрии
                     </span>
-                        <button class="nti-button" v-if="isUserAdmin"
+                        <button class="nti-button"
                              v-on:click="dispatch_add_user_in_group()">
                             Подписатся на уведомления
                         </button>
@@ -66,7 +66,7 @@
                                     {{machine.date_captured}}
                                 </span>
                             </div>
-                            <router-link class="nti-button" v-if="isUserAdmin"
+                            <router-link class="nti-button"
                                     :to="{name: 'equipment-page', params: {id: machine.machine_id}}">
                                 Подробнее
                             </router-link>
@@ -94,7 +94,7 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters, mapState} from "vuex";
+    import {mapActions, mapState} from "vuex";
     import axios from 'axios';
     import {Datetime} from "vue-datetime";
 
@@ -137,7 +137,6 @@
         computed: {
             ...mapState('monitor', ['LastData']),
             ...mapState('session', {me: 'user'}),
-            ...mapGetters('session', ['isUserAdmin']),
         },
         created() {
             this.getLastData()
