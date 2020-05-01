@@ -6,7 +6,7 @@
     <div class="navbar">
       <nti-input class="nti-3 nti--margin_0" v-model="search" type="text"
         placeholder="Поиск по логину" bicon="search" primary/>
-      <button class="nti-button nti-button--transparent" v-if="isUserAdmin" @click="setModal(true)">
+      <button class="nti-button nti-button--transparent" v-if="isUserHighManager || isUserManager" @click="setModal(true)">
         Добавить пользователя
       </button>
     </div>
@@ -74,7 +74,7 @@ export default {
   },
   computed: {
     ...mapState('users', ['users']),
-    ...mapGetters('session', ['isUserAdmin']),
+    ...mapGetters('session', ['isUserHighManager', 'isUserManager']),
     ...mapGetters('users', ['groupByID']),
     filteredUsers() {
       return this.users.filter(user => user.username.indexOf(this.search) === 0);

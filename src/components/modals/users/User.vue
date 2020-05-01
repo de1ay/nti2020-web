@@ -1,13 +1,11 @@
 <template>
   <div class="nti-form">
-    <nti-input class="nti-3" type="text" label="Логин"
+    <nti-input class="nti-4" type="text" label="Логин"
       v-model.trim="user.username" placeholder="Введите логин" primary/>
-    <nti-input class="nti-3" type="text" label="Email"
+    <nti-input class="nti-4" type="text" label="Email"
       v-model.trim="user.email" placeholder="Введите email" primary/>
-    <nti-input class="nti-3" type="dropdown" label="Уровень доступа"
+    <nti-input class="nti-4" type="dropdown" label="Уровень доступа"
       v-model="user.group" :items="groups" primary/>
-    <nti-input class="nti-3" type="switch" label="Администратор"
-      v-model="user.is_staff"/>
     <nti-input class="nti-4" type="password" label="Пароль"
       v-model.trim="user.password" placeholder="Введите пароль" primary/>
     <nti-input class="nti-4" type="password" label="Повторите пароль"

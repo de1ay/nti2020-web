@@ -36,7 +36,6 @@ export default {
   },
   computed: {
     ...mapState('session', ['user']),
-    ...mapGetters('session', ['isUserAdmin']),
     filteredLinks() {
       return this.navLinks.filter(link => link.showCondition !== false);
     },
