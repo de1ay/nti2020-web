@@ -23,9 +23,16 @@
             :src="(userByPrimaryID[chat.userID] && userByPrimaryID[chat.userID].avatar)
               || require('@/assets/images/no_photo.png')"/>
           <div class="row-content">
-            <div class="row-title">{{ (userByPrimaryID[chat.userID] && userByPrimaryID[chat.userID].name) ? 
-              `${userByPrimaryID[chat.userID].surname} ${userByPrimaryID[chat.userID].name}` 
-              : userByPrimaryID[chat.userID].username }}</div>
+            <div class="row-title" v-if="chat.userID !== user.primary_id">
+              {{
+                (userByPrimaryID[chat.userID] && userByPrimaryID[chat.userID].name)
+                ? `${userByPrimaryID[chat.userID].surname} ${userByPrimaryID[chat.userID].name}` 
+                : userByPrimaryID[chat.userID].username 
+              }}
+            </div>
+            <div class="row-title" v-else>
+              Вы
+            </div>
             <div class="row-message">{{ chat.message }}</div>
           </div>
         </div>
@@ -35,7 +42,10 @@
       <div class="active_chat-info">
         <img :src="activeChatInfo.logo || require('@/assets/images/no_photo.png')"
           alt="Нет фото" class="active_chat-avatar">
-        <div class="active_chat-title">
+        <div class="active_chat-title" v-if="isPrivateChat">
+          {{ activeChatInfo.id === user.primary_id ? 'Вы' : activeChatInfo.title }}
+        </div>
+        <div class="active_chat-title" v-else>
           {{ activeChatInfo.title }}
         </div>
       </div>
