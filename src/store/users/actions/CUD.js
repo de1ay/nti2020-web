@@ -69,6 +69,11 @@ const actions = {
         if (resp.data.error !== undefined) {
           return Promise.reject(resp.data.error);
         }
+        try {
+          dispatch('chat/addUserToChat', { chatID: 3, userID: user.id, notifications: true}, { root: true });
+        } catch (e) {
+          console.log(e);
+        }
         dispatch('getUsers');
         return Promise.resolve(user);
       })

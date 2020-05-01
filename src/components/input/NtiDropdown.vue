@@ -1,6 +1,7 @@
 <template>
   <div class="dropdown" :class="{
       'dropdown--opened': opened,
+      'dropdown--big': $props.big,
       'nti-input--primary': $props.primary
     }"
     :disabled="$props.disabled"
@@ -45,6 +46,10 @@ export default {
       default: false,
     },
     primary: {
+      type: Boolean,
+      default: false,
+    },
+    big: {
       type: Boolean,
       default: false,
     },
@@ -210,7 +215,7 @@ export default {
   &-list {
     z-index: 100;
     position: absolute;
-    top: 25px;
+    top: 30px;
     max-height: 75px;
     min-width: 100%;
     max-width: 350px;
@@ -253,6 +258,24 @@ export default {
     &__icon {
       color: #000;
       transition: all ease-in-out .2s;
+    }
+
+  }
+
+  
+  &--big {
+   
+    .dropdown {
+
+      &-item {
+
+        &--active {
+          font-family: $bahnschrift;
+          font-size: 20px;
+        }
+
+      }
+
     }
 
   }

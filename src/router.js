@@ -7,7 +7,7 @@ import Layout from '@/layouts/Base.vue';
 import Login from '@/views/Login.vue';
 import Logout from '@/views/Logout.vue';
 
-import Home from '@/views/Home.vue';
+import Map from '@/views/Map.vue';
 import Chat from '@/views/Chat.vue';
 import Users from '@/views/Users.vue';
 import Profile from '@/views/Profile.vue';
@@ -37,9 +37,8 @@ const routes = [{
     redirect: { name: 'chat' },
     meta: { requiresAuth: true },
     children: [{
-      path: 'home',
-      name: 'home',
-      component: Home,
+      path: 'profile',
+      redirect: { name: 'portal' },
     }, {
       path: 'profile/:id',
       name: 'profile',
@@ -56,6 +55,10 @@ const routes = [{
       path: 'chat/group/:id',
       name: 'chat',
       component: Chat,
+    }, {
+      path: 'map',
+      name: 'map',
+      component: Map,
     }, {
       path: 'equipment',
       name: 'equipment',

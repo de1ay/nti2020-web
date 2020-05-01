@@ -5,6 +5,7 @@ import session from './session';
 import users from './users';
 import monitor from './monitor';
 import chat from './chat';
+import map from './map';
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ const store = {
     users,
     monitor,
     chat,
+    map,
   },
 };
 

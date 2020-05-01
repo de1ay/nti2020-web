@@ -3,6 +3,7 @@
     'nti-input--active': isInputStateActive,
     'nti-input--not_empty': !isEmpty,
     'nti-input--primary': $props.primary,
+    'nti-input--big': $props.big,
     'nti-input--switch': $props.type === 'switch'}">
     <div class="nti-input__container">
 
@@ -22,6 +23,7 @@
       <!-- Dropdown -->
       <nti-dropdown v-if="$props.type === 'dropdown'" v-model="rawVal"
         :placeholder="$props.placeholder" :items="$props.items" :disabled="$props.disabled"
+        :big="$props.big"
         @focus="setInputState(InputStates.active)"
         @unfocus="setInputState(InputStates.default)"
         @select="onSelect"/>
@@ -108,6 +110,10 @@ export default {
       default: '',
     },
     primary: {
+      type: Boolean,
+      default: false,
+    },
+    big: {
       type: Boolean,
       default: false,
     },
@@ -368,6 +374,18 @@ export default {
 
         }
 
+      }
+
+    }
+
+  }
+
+  &--big {
+
+    .nti-input {
+
+      &__container {
+        border: none;
       }
 
     }

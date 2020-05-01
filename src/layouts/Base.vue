@@ -7,7 +7,7 @@
           <nav-link v-for="link in filteredLinks" :key="link.to" :to="link.to" :text="link.text"
             :params="link.params"/>
         </nav>
-        <div class="header__user">
+        <div class="header__user" @click="$router.push({ name: 'profile', params: { id: user.primary_id || 1 } })">
           <img :src="user.avatar ? `${apiUrl}${user.avatar}` : require('@/assets/images/no_photo.png')"
             alt="" class="header__user-icon">
         </div>
@@ -41,10 +41,7 @@ export default {
       return this.navLinks.filter(link => link.showCondition !== false);
     },
     navLinks() {
-      return  [/*{
-        to: 'home',
-        text: 'Главная',
-      }, */{
+      return  [{
         to: 'profile',
         text: 'Профиль',
         params: { id: this.user.primary_id || 1 },
@@ -55,6 +52,9 @@ export default {
       }, {
         to: 'chat',
         text: 'Чат',
+      }, {
+        to: 'map',
+        text: 'Карта',
       }, {
         to: 'equipment',
         text: 'Оборудование',
@@ -106,6 +106,10 @@ export default {
     }
 
     &__user {
+
+      &:hover {
+        cursor: pointer;
+      }
 
       &-icon {
         width: 40px;
