@@ -39,7 +39,6 @@
             </div>
           </div>
           <div class="info-tags">
-            <div class="info-tag" v-if="user.is_staff">Администратор</div>
             <div class="info-tag" v-if="user.groups[user.groups.length - 1] && user.groups[user.groups.length - 1] > 5">
               {{ groupByID[user.groups[user.groups.length - 1]].text }}
             </div>
