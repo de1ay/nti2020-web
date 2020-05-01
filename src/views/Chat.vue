@@ -7,7 +7,8 @@
     <div class="chats">
       <div class="chats-title">
         <div class="title-text">Чаты</div>
-        <v-icon class="title-action" name="plus" @click="setModal(true)"/>
+        <v-icon class="title-action" name="plus" @click="setModal(true)"
+          v-if="isUserAdmin || isUserHighManager || isUserManager"/>
       </div>
       <div class="chats-rows">
         <div class="chats-row" v-for="chat in groupChats" :key="`group-${chat.id}`"
@@ -138,6 +139,11 @@ export default {
       'activeChat',
       'activeChatInfo',
       'groupChats'
+    ]),
+    ...mapGetters('session', [
+      'isUserAdmin',
+      'isUserManager',
+      'isUserHighManager',
     ]),
     ...mapGetters('users', ['userByPrimaryID']),
     ...mapGetters('chat', [
