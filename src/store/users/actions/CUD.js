@@ -6,7 +6,7 @@ const actions = {
     return await axios({
       url: `/api/users/`,
       method: 'POST',
-      data: { username: user.username, email: user.email, is_staff: user.is_staff },
+      data: { username: user.username, email: user.email, is_staff: user.is_staff, groups: user.groups },
     })
       .then(resp => {
         if (resp.data.error !== undefined) {

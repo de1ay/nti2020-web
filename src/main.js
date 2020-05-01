@@ -9,6 +9,7 @@ import 'vue-awesome/icons/edit';
 import 'vue-awesome/icons/trash';
 import 'vue-awesome/icons/times';
 import 'vue-awesome/icons/search';
+import 'vue-awesome/icons/angle-down';
 import 'vue-awesome/icons/paper-plane';
 
 import Toasted from 'vue-toasted';

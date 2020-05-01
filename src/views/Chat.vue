@@ -1,5 +1,8 @@
 <template>
   <div class="chat">
+    <modal v-if="modal" title="Новая группа" @close="setModal()">
+      <chat-modal/>
+    </modal>
     <div class="chats">
       <div class="chats-title">
         <div class="title-text">Чаты</div>
@@ -74,13 +77,20 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 
 import NtiInput from '@/components/NtiInput.vue';
 
+import Modal from '@/components/Modal.vue';
+import ChatModal from '@/components/modals/chats/Chat.vue';
+
 export default {
   name: 'Chat',
   components: {
     NtiInput,
+    Modal,
+    ChatModal,
   },
   data() {
     return {
+      modal: false,
+      editableChat: null,
       message: '',
       recievedMessagesRefresh: null,
       groupChatsRefresh: null,
@@ -123,6 +133,10 @@ export default {
       'sendChatMessage',
       'sendPrivateMessage',
     ]),
+    setModal(modal=false, editableChat=null) {
+      this.modal = modal;
+      this.editableChat = editableChat;
+    },
     scrollToLastMessage() {
       this.$refs.chatMessages.scrollTop = this.$refs.chatMessages.scrollHeight;
     },

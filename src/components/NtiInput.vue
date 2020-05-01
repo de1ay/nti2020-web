@@ -19,6 +19,14 @@
         :disabled="$props.disabled" :accept="$props.accept"
         @change="onFileChange">
 
+      <!-- Dropdown -->
+      <nti-dropdown v-if="$props.type === 'dropdown'" v-model="rawVal"
+        :placeholder="$props.placeholder" :items="$props.items" :disabled="$props.disabled"
+        :modifiers="$props.modifiers"
+        @focus="setInputState(InputStates.active)"
+        @unfocus="setInputState(InputStates.default)"
+        @select="onSelect"/>
+
       <!-- Text/Password -->
       <input class="nti-input__field" v-if="$props.type === 'text' || $props.type === 'password'"
         v-model="rawVal" :type="$props.type" :placeholder="$props.placeholder"
@@ -45,6 +53,8 @@
 </template>
 
 <script>
+import NtiDropdown from '@/components/input/NtiDropdown.vue';
+
 const InputStates = {
   default: 0,
   active: 1,
@@ -53,9 +63,16 @@ const InputStates = {
 
 export default {
   name: 'NtiInput',
+  components: {
+    NtiDropdown,
+  },
   props: {
     value: {
       required: true,
+    },
+    items: {
+      type: Array,
+      default: () => [],
     },
     type: {
       required: true,
@@ -123,6 +140,9 @@ export default {
       const files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       this.$emit('input', files[0]);
+    },
+    onSelect(selectedItem) {
+      this.$emit('select', selectedItem);
     },
     onEnterPress() {
       this.$emit('enter', this.rawVal);

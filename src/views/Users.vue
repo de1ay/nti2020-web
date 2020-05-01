@@ -40,6 +40,9 @@
           </div>
           <div class="info-tags">
             <div class="info-tag" v-if="user.is_staff">Администратор</div>
+            <div class="info-tag" v-if="user.groups[user.groups.length - 1]">
+              {{ groupByID[user.groups[user.groups.length - 1]].text }}
+            </div>
           </div>
         </div>
       </div>
@@ -72,6 +75,7 @@ export default {
   computed: {
     ...mapState('users', ['users']),
     ...mapGetters('session', ['isUserAdmin']),
+    ...mapGetters('users', ['groupByID']),
     filteredUsers() {
       return this.users.filter(user => user.username.indexOf(this.search) === 0);
     },
@@ -141,6 +145,12 @@ export default {
       flex-wrap: wrap;
 
       .info {
+
+        &-tags {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-end;
+        }
 
         &-tag {
           box-sizing: border-box;
