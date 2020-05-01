@@ -23,7 +23,7 @@ const actions = {
       });
   },
   async getGroupChat(store, chatID) {
-    const { commit, getters, dispatch } = store;
+    const { rootState, commit, getters, dispatch } = store;
     return await axios({
       url: `/chat/chat-message/${chatID}/`,
       method: 'GET',
@@ -33,17 +33,18 @@ const actions = {
           return Promise.reject(resp.data.error);
         }
         commit('setActiveChat', resp.data);
-        dispatch('getChatUsers');
-        await dispatch('getGroupChats');
-        commit('setActiveChatInfo', getters['groupChatByID'][chatID]);
+        dispatch('getGroupChats');
+        await dispatch('getChatUsers');
+        const bind = getters['usersByChatID'][chatID].find(bind => bind.user === rootState.session.user.primary_id);
+        commit('setActiveChatInfo', {
+          ...getters['groupChatByID'][chatID],
+          notifications: bind.receive_notifications,
+          bindID: bind.id,
+        });
         return Promise.resolve(resp.data);
       })
       .catch(err => {
-        const data = err.response.data;
-        if (data.detail) {
-          return Promise.reject(data.detail);
-        }
-        return Promise.reject(data);
+        return Promise.reject(err);
       });
   },
   async sendChatMessage(store, {message, chatID}) {
@@ -186,15 +187,16 @@ const actions = {
         return Promise.reject(data);
       });
   },
-  async enableNotifications(store, { instanceID, chatID }) {
+  async enableNotifications(store, { bindID, chatID }) {
     const { rootState } = store;
     return await axios({
-      url: `/chat/chat-users/${instanceID}/`,
+      url: `/chat/chat-users/${bindID}/`,
       method: 'PUT',
       data: {
-        id: chatID,
+        id: bindID,
         receive_notifications: true,
         user: rootState.session.user.primary_id,
+        chat: chatID,
       }
     })
       .then(async resp => {
@@ -211,15 +213,16 @@ const actions = {
         return Promise.reject(data);
       });
   },
-  async disableNotifications(store, { instanceID, chatID }) {
+  async disableNotifications(store, { bindID, chatID }) {
     const { rootState } = store;
     return await axios({
-      url: `/chat/chat-users/${instanceID}/`,
+      url: `/chat/chat-users/${bindID}/`,
       method: 'PUT',
       data: {
-        id: chatID,
+        id: bindID,
         receive_notifications: false,
         user: rootState.session.user.primary_id,
+        chat: chatID,
       }
     })
       .then(async resp => {

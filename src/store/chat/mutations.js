@@ -26,6 +26,8 @@ const mutations = {
       state.activeChatInfo.id    = payload.id;
       state.activeChatInfo.title = payload.name;
       state.activeChatInfo.owner = payload.owner;
+      state.activeChatInfo.notifications = payload.notifications;
+      state.activeChatInfo.bindID = payload.bindID;
       state.activeChatInfo.logo  = GeoPattern.generate(`${payload.id}-${payload.name}`).toDataUri();
     }
   }

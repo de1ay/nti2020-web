@@ -56,8 +56,9 @@
           <v-icon class="active_chat-action active_chat-action--small" name="edit"
             v-if="activeChatInfo.owner === user.primary_id && activeChatInfo.id !== 1"
             @click="setModal(true, groupChatByID[activeChatInfo.id])"/>
-          <v-icon class="active_chat-action" name="volume-up"/>
-          <v-icon class="active_chat-action" name="volume-mute"/>
+          <v-icon class="active_chat-action" v-if="activeChatInfo.notifications" name="volume-up"
+            @click="turnNotificationsOff"/>
+          <v-icon class="active_chat-action" v-else name="volume-mute" @click="turnNotificationsOn"/>
         </div>
       </div>
       <div class="active_chat-messages" ref="chatMessages">
@@ -166,6 +167,8 @@ export default {
       'getRecievedMessages',
       'sendChatMessage',
       'sendPrivateMessage',
+      'enableNotifications',
+      'disableNotifications',
     ]),
     setModal(modal=false, editableData=null, isChatModal=true) {
       this.modal = modal;
@@ -245,7 +248,31 @@ export default {
         this.scrollToLastMessage();
         this.activeChatRefresh = setInterval(() => this.getGroupChat(this.$route.params.id), 5000);
       }
-    }
+    },
+    async turnNotificationsOn() {
+      try {
+        await this.enableNotifications({
+          bindID: this.activeChatInfo.bindID,
+          chatID: this.activeChatInfo.id,
+        });
+        this.getGroupChat(this.$route.params.id);
+        this.$toasted.success('Уведомления включены');
+      } catch (err) {
+        this.$toasted.error(err.message);
+      }
+    },
+    async turnNotificationsOff() {
+      try {
+        await this.disableNotifications({
+          bindID: this.activeChatInfo.bindID,
+          chatID: this.activeChatInfo.id,
+        });
+        this.getGroupChat(this.$route.params.id);
+        this.$toasted.success('Уведомления выключены');
+      } catch (err) {
+        this.$toasted.error(err.message);
+      }
+    },
   },
   watch: {
     async $route() {
