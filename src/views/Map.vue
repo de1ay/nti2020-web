@@ -3,20 +3,23 @@
     <vl-map :load-tiles-while-animating="true" :load-tiles-while-interacting="true"
              data-projection="EPSG:4326" class="map-container">
       <vl-view :zoom.sync="zoom" :center.sync="center" :rotation.sync="rotation" ref="mapView"/>
+      
       <vl-layer-tile id="osm">
         <vl-source-osm/>
       </vl-layer-tile>
-      <vl-feature v-for="office in (contentType === 0 ? offices : [])"
-        :key="`marker-${office.name}`">
-        <vl-geom-point :coordinates="office.coordinates"></vl-geom-point>
-      </vl-feature>
+
+      <vl-layer-vector ref="featuresLayer">
+        <vl-source-vector :features="officesFeatures" :condition="eventCondition"></vl-source-vector>
+      </vl-layer-vector>
+
+      <vl-interaction-select :features.sync="selectedOffices"></vl-interaction-select>
     </vl-map>
     <div class="map-content">
-      <nti-input class="content-title" type="dropdown" v-model="contentType"
-        :items="contentTypes" primary big/>
+      <div class="content-title">Филиалы</div>
       <div class="content-items" v-if="contentType === 0">
-        <div class="content-item" v-for="office in offices" :key="office.name"
-          @click="goToLocation(office.coordinates)">
+        <div class="content-item" v-for="(office, id) in offices" :key="office.name"
+          @click="selectOffice(id)"
+          :class="{'content-item--active': selectedOffices[0] && (id === selectedOffices[0].id - 1)}">
           <div class="item-title">
             {{ office.name }}
           </div>
@@ -58,6 +61,7 @@ export default {
   },
   data() {
     return {
+      selectedOffices: [],
       contentType: 0,
       contentTypes: [{
         prop: 0,
@@ -73,10 +77,32 @@ export default {
   },
   computed: {
     ...mapState('map', ['offices']),
+    officesFeatures() {
+      return this.offices.map((item, id) => ({
+        type: 'Feature',
+        id: id+1,
+        geometry: {
+          type: 'Point',
+          coordinates: item.coordinates,
+        }
+      })) 
+    },
   },
   methods: {
+    selectOffice(id) {
+      this.contentType = 0;
+      this.selectedOffices = [this.officesFeatures[id]];
+    },
     goToLocation(coordinates) {
       this.$refs.mapView.animate({center: coordinates, zoom: 16});
+    },
+    eventCondition (event) {
+    	return event.condition;
+    },
+  },
+  watch: {
+    selectedOffices(to) {
+      if (to[0]) this.goToLocation(to[0].geometry.coordinates);
     }
   },
 };
@@ -104,11 +130,14 @@ export default {
     .content {
 
       &-title {
+        margin-bottom: 15px;
         padding: 20px;
-        height: 60px;
+        height: 20px;
         display: flex;
         align-items: center;
         background: #fff;
+        font-family: $bahnschrift;
+        font-size: 20px;
         border-radius: 10px;
       }
 
@@ -118,6 +147,7 @@ export default {
         flex-direction: column;
         justify-content: flex-start;
         align-items: stretch;
+        border-radius: 10px;
         overflow-x: hidden;
         overflow-y: auto;
       }
@@ -164,6 +194,35 @@ export default {
               &-value {
                 color: #000;
                 text-align: right;
+              }
+
+            }
+
+          }
+
+        }
+
+        &--active {
+          background: $primaryLighter;
+
+          .item {
+            
+            &-title {
+              color: #fff;
+            }
+
+            &-row {
+
+              .row {
+
+                &-title {
+                  color: #fff;
+                }
+
+                &-value {
+                  color: #fff;
+                }
+
               }
 
             }

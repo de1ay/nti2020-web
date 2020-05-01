@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const actions = {
   async getGroupChats(store) {
-    const { commit } = store;
+    const { rootState, commit, getters, dispatch } = store;
     return await axios({
       url: `/chat/chat-group/`,
       method: 'GET',
@@ -11,7 +11,12 @@ const actions = {
         if (resp.data.error !== undefined) {
           return Promise.reject(resp.data.error);
         }
-        commit('setGroupChats', resp.data.results);
+        await dispatch('getChatUsers');
+        commit('setGroupChats', {
+          data: resp.data.results,
+          user: rootState.session.user,
+          bindByChatID: getters['usersByChatID'],
+        });
         return Promise.resolve(resp.data);
       })
       .catch(err => {

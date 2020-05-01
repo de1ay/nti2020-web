@@ -7,7 +7,8 @@
     <div class="chats">
       <div class="chats-title">
         <div class="title-text">Чаты</div>
-        <v-icon class="title-action" name="plus" @click="setModal(true)"/>
+        <v-icon class="title-action" name="plus" @click="setModal(true)"
+          v-if="isUserHighManager || isUserManager"/>
       </div>
       <div class="chats-rows">
         <div class="chats-row" v-for="chat in groupChats" :key="`group-${chat.id}`"
@@ -62,7 +63,7 @@
         </div>
       </div>
       <div class="active_chat-messages" ref="chatMessages">
-        <div class="active_chat-empty" v-if="activeChat.length === 0">
+        <div class="active_chat-empty" v-if="!activeChat || activeChat.length === 0">
           Сообщений нет :(
         </div>
         <div class="message" v-for="msg in activeChat" :key="msg.id">
@@ -138,6 +139,10 @@ export default {
       'activeChat',
       'activeChatInfo',
       'groupChats'
+    ]),
+    ...mapGetters('session', [
+      'isUserManager',
+      'isUserHighManager',
     ]),
     ...mapGetters('users', ['userByPrimaryID']),
     ...mapGetters('chat', [
@@ -280,7 +285,7 @@ export default {
       await this.initialize();
     },
     activeChat(to, from) {
-      if (to.length > from.length) {
+      if (to && to.length > from.length) {
         let to = setTimeout(() => this.scrollToLastMessage(), 50);
       }
     }

@@ -1,11 +1,13 @@
 const GeoPattern = require('geopattern');
 
 const mutations = {
-  setGroupChats(state, payload) {
-    state.groupChats = payload.map(chat => ({
+  setGroupChats(state, { data, user, bindByChatID }) {
+    state.groupChats = data.map(chat => ({
       ...chat,
       avatar: GeoPattern.generate(`${chat.id}-${chat.name}`).toDataUri(),
-    }));
+    })).filter(chat => {
+      return !!bindByChatID[chat.id].find(bind => bind.user === user.primary_id);
+    });
   },
   setChatUsers(state, payload) {
     state.chatUsers = payload;

@@ -62,7 +62,6 @@ export default {
   computed: {
     ...mapState('users', ['user']),
     ...mapState('session', {me: 'user'}),
-    ...mapGetters('session', ['isUserAdmin']),
   },
   methods: {
     ...mapActions('users', ['getUser']),
