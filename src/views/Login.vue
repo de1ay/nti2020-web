@@ -7,9 +7,9 @@
       <div class="card-form">
         <div class="form-field">
           <nti-input v-model="login" type="text" label="Логин"
-            placeholder="Введите логин"/>
+            placeholder="Введите логин" @enter="submit"/>
           <nti-input v-model="password" type="password" label="Пароль"
-            placeholder="Введите пароль"/>
+            placeholder="Введите пароль" @enter="submit"/>
           <button class="nti-button" :disabled="!isSubmitAllowed" @click="submit">Войти</button>
         </div>
       </div>

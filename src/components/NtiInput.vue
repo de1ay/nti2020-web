@@ -1,6 +1,7 @@
 <template>
   <div class="nti-input" :class="{
     'nti-input--active': isInputStateActive,
+    'nti-input--not_empty': !isEmpty,
     'nti-input--primary': $props.primary,
     'nti-input--switch': $props.type === 'switch'}">
     <div class="nti-input__container">
@@ -18,12 +19,30 @@
         :disabled="$props.disabled" :accept="$props.accept"
         @change="onFileChange">
 
+      <!-- Dropdown -->
+      <nti-dropdown v-if="$props.type === 'dropdown'" v-model="rawVal"
+        :placeholder="$props.placeholder" :items="$props.items" :disabled="$props.disabled"
+        @focus="setInputState(InputStates.active)"
+        @unfocus="setInputState(InputStates.default)"
+        @select="onSelect"/>
+
+      <!-- Autocomplete -->
+      <nti-autocomplete v-if="$props.type === 'autocomplete'" v-model="rawVal"
+        :placeholder="$props.placeholder" :items="$props.items" :disabled="$props.disabled"
+        @focus="setInputState(InputStates.active)" @enter="onEnterPress"
+        @unfocus="setInputState(InputStates.default)"
+        @select="onSelect"/>
+
+
       <!-- Text/Password -->
       <input class="nti-input__field" v-if="$props.type === 'text' || $props.type === 'password'"
         v-model="rawVal" :type="$props.type" :placeholder="$props.placeholder"
-        :disabled="$props.disabled"
+        :disabled="$props.disabled" @keydown.enter="onEnterPress"
         @focus="setInputState(InputStates.active)"
         @blur="setInputState(InputStates.default)">
+
+      <!-- aicon -->
+      <v-icon class="nti-input__aicon" v-if="$props.aicon" :name="$props.aicon" @click="onAiconClick"/>
 
       <!-- Label for switch -->
       <label v-if="$props.type === 'switch'" class="nti-input__label nti-12"
@@ -41,6 +60,9 @@
 </template>
 
 <script>
+import NtiDropdown from '@/components/input/NtiDropdown.vue';
+import NtiAutocomplete from '@/components/input/NtiAutocomplete.vue';
+
 const InputStates = {
   default: 0,
   active: 1,
@@ -49,9 +71,17 @@ const InputStates = {
 
 export default {
   name: 'NtiInput',
+  components: {
+    NtiDropdown,
+    NtiAutocomplete,
+  },
   props: {
     value: {
       required: true,
+    },
+    items: {
+      type: Array,
+      default: () => [],
     },
     type: {
       required: true,
@@ -70,6 +100,10 @@ export default {
       default: '',
     },
     bicon: {
+      type: String,
+      default: '',
+    },
+    aicon: {
       type: String,
       default: '',
     },
@@ -96,6 +130,9 @@ export default {
     isInputStateActive() {
       return this.inputState === InputStates.active;
     },
+    isEmpty() {
+      return !(this.rawVal || (this.rawVal && this.rawVal.length > 0));
+    }
   },
   methods: {
     setInputState(state) {
@@ -112,6 +149,16 @@ export default {
       const files = e.target.files || e.dataTransfer.files;
       if (!files.length) return;
       this.$emit('input', files[0]);
+    },
+    onSelect(selectedItem) {
+      this.$emit('select', selectedItem);
+    },
+    onEnterPress() {
+      this.$emit('enter', this.rawVal);
+    },
+    onAiconClick() {
+      if (this.isEmpty) return;
+      this.$emit('aicon', this.rawVal);
     },
   },
 };
@@ -153,6 +200,19 @@ export default {
     transition: color ease-in-out .2s;
   }
 
+  &__aicon {
+    margin-top: -1px;
+    padding-right: 4px;
+    height: 12px;
+    color: $neutral;
+    transition: color ease-in-out .2s;
+    
+    &:hover {
+      cursor: not-allowed;
+    }
+
+  }
+
   &__label {
     order: -1;
     margin-bottom: -2px;
@@ -181,6 +241,19 @@ export default {
       &:disabled {
         background: #fff;
         cursor: not-allowed;
+      }
+
+    }
+
+  }
+
+  &--not_empty {
+
+    .nti-input__aicon {
+      color: #fff;
+
+      &:hover {
+        cursor: pointer;
       }
 
     }
@@ -314,11 +387,7 @@ export default {
 
       }
 
-      &__bicon {
-        color: $neutralDarker;
-      }
-
-      &__label {
+      &__bicon, &__aicon, &__label {
         color: $neutralDarker;
       }
 
@@ -329,6 +398,18 @@ export default {
           color: $neutralDarker;
         }
 
+      }
+
+    }
+
+  }
+
+  &--primary.nti-input--not_empty {
+
+    .nti-input__container {
+
+      .nti-input__aicon {
+        color: $primary;
       }
 
     }

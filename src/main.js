@@ -5,9 +5,15 @@ import store from './store'
 import './axios';
 
 import 'vue-awesome/icons/edit';
+import 'vue-awesome/icons/plus';
 import 'vue-awesome/icons/trash';
 import 'vue-awesome/icons/times';
+import 'vue-awesome/icons/users';
 import 'vue-awesome/icons/search';
+import 'vue-awesome/icons/volume-up';
+import 'vue-awesome/icons/angle-down';
+import 'vue-awesome/icons/volume-mute';
+import 'vue-awesome/icons/paper-plane';
 
 import Toasted from 'vue-toasted';
 Vue.use(Toasted, {

@@ -1,6 +1,12 @@
 const state = {
+  groupChats: [],
+  recievedMessages: [],
   activeChat: [],
-  activeChatInfo: {},
+  activeChatInfo: {
+    title: '',
+    avatar: '',
+  },
+  chatUsers: [],
 };
 
 export default state;

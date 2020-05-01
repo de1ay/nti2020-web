@@ -49,6 +49,14 @@ const routes = [{
       name: 'chat',
       component: Chat,
     }, {
+      path: 'chat/private/:id',
+      name: 'chat',
+      component: Chat,
+    }, {
+      path: 'chat/group/:id',
+      name: 'chat',
+      component: Chat,
+    }, {
       path: 'equipment',
       name: 'equipment',
       component: Equipment,

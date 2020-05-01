@@ -5,8 +5,8 @@
         <img :src="user.avatar ? `${apiUrl}${user.avatar}` : require('@/assets/images/no_photo.png')"
           alt="Нет фото" class="avatar">
       </div>
-      <div class="nti-button" v-show="false" v-if="isUserAdmin || me.id === user.id">
-        Редактировать
+      <div class="nti-button" @click="$router.push({ path: `/portal/chat/private/${user.primary_id}` })">
+        {{ me.primary_id === user.primary_id ? 'Заметки' : 'Написать сообщение' }}
       </div>
     </div>
     <div class="profile-info">
@@ -63,8 +63,13 @@ export default {
   methods: {
     ...mapActions('users', ['getUser']),
   },
-  mounted() {
-    this.getUser(this.$route.params.id);
+  watch: {
+    $route() {
+      this.getUser(this.$route.params.id);
+    }
+  },
+  async mounted() {
+    await this.getUser(this.$route.params.id);
   },
 };
 </script>

@@ -1,19 +1,22 @@
 import axios from 'axios';
 
+import Group from './actions/group';
+import Private from './actions/private';
+
 const actions = {
-  async getChatWithUser(store, userID) {
-    const { rootState, commit } = store;
+  ...Group,
+  ...Private,
+  async getChatUsers(store) {
+    const { commit } = store;
     return await axios({
-      url: `/chat/messages/user/${userID}/`,
+      url: `/chat/chat-users/`,
       method: 'GET',
     })
-      .then(resp => {
+      .then(async resp => {
         if (resp.data.error !== undefined) {
           return Promise.reject(resp.data.error);
         }
-        commit('setActiveChat', resp.data.results);
-        await dispatch('users/getUser', userID, { root: true });
-        commit('setActiveChatInfo', rootState.users.user);
+        commit('setChatUsers', resp.data.results);
         return Promise.resolve(resp.data);
       })
       .catch(err => {

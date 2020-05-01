@@ -1,10 +1,12 @@
 <template>
   <div class="nti-form">
-    <nti-input class="nti-4" type="text" label="Логин"
+    <nti-input class="nti-3" type="text" label="Логин"
       v-model.trim="user.username" placeholder="Введите логин" primary/>
-    <nti-input class="nti-4" type="text" label="Email"
+    <nti-input class="nti-3" type="text" label="Email"
       v-model.trim="user.email" placeholder="Введите email" primary/>
-    <nti-input class="nti-4" type="switch" label="Администратор"
+    <nti-input class="nti-3" type="dropdown" label="Уровень доступа"
+      v-model="user.group" :items="groups" primary/>
+    <nti-input class="nti-3" type="switch" label="Администратор"
       v-model="user.is_staff"/>
     <nti-input class="nti-4" type="password" label="Пароль"
       v-model.trim="user.password" placeholder="Введите пароль" primary/>
@@ -33,7 +35,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 import NtiInput from '@/components/NtiInput.vue';
 
@@ -54,6 +56,8 @@ export default {
       user: {
         id: '',
         username: '',
+        group: 6,
+        groups: [],
         email: '',
         is_staff: false,
         password: '',
@@ -69,6 +73,10 @@ export default {
       file: null,
     }
   },
+  computed: {
+    ...mapState('users', ['groups']),
+    ...mapGetters('users', ['groupByID']),
+  },
   methods: {
     ...mapActions('users', ['createUser', 'updateUser']),
     async submit() {
@@ -83,8 +91,15 @@ export default {
         this.$toasted.error('Пароли не совпадают');
         return;
       }
+      if (!(this.user.username && this.user.email && this.user.group && this.file
+        && this.user.name && this.user.surname && this.user.patronymic
+        && this.user.age && this.user.position && this.user.experience )) {
+        this.$toasted.error('Все поля обязательны');
+        return;
+      }
       try {
         this.user.avatar = this.file;
+        this.user.groups = this.groupByID[this.user.group].set;
         let user = await this.createUser(this.user);
         this.$toasted.success('Пользователь добавлен');
         this.$emit('submit', user);
@@ -94,6 +109,16 @@ export default {
       }
     },
     async editUser() {
+      if (this.user.password.length > 0 && (this.user.password !== this.user.password_confirm)) {
+        this.$toasted.error('Пароли не совпадают');
+        return;
+      }
+      if (!(this.user.username && this.user.email && this.user.group
+        && this.user.name && this.user.surname && this.user.patronymic
+        && this.user.age && this.user.position && this.user.experience )) {
+        this.$toasted.error('Все поля (кроме паролей и фото) обязательны');
+        return;
+      }
       try {
         await this.updateUser(this.user);
         this.$toasted.success('Изменения сохранены');
@@ -106,6 +131,7 @@ export default {
   mounted() {
     if (this.$props.data && this.$props.data.id) {
       this.user = Object.assign({}, this.$props.data);
+      this.user.group = this.user.groups[this.user.groups.length - 1] ? this.groups[this.user.groups.length - 1] : undefined;
     }
   },
 };

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const actions = {
   async getUser(store) {
-    const { commit } = store;
+    const { commit, dispatch } = store;
     return await axios({
       url: `/api/users/me/`,
       method: 'GET',
@@ -12,6 +12,7 @@ const actions = {
           return Promise.reject(resp.data.error);
         }
         commit('setUser', resp.data);
+        dispatch('getUserInfo');
         return Promise.resolve(resp.data);
       })
       .catch(err => {
@@ -20,6 +21,27 @@ const actions = {
           return Promise.reject(data.detail);
         }
         return Promise.reject(data);
+      });
+  },
+  async getUserInfo(store) {
+    const { state, commit } = store;
+    return await axios({
+      url: `/api/users-info/user/${state.user.id}/`,
+      method: 'GET',
+    })
+      .then(resp => {
+        if (resp.data.error !== undefined) {
+          return Promise.reject(resp.data.error);
+        }
+        commit('setUserInfo', resp.data);
+        return Promise.resolve(resp.data);
+      })
+      .catch(err => {
+        const data = err.response.data;
+        if (data.detail) {
+          return Promise.resolve(data.detail);
+        }
+        return Promise.resolve(data);
       });
   },
   async authorize(store, { login, password }) {

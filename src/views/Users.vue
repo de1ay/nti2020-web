@@ -6,7 +6,7 @@
     <div class="navbar">
       <nti-input class="nti-3 nti--margin_0" v-model="search" type="text"
         placeholder="Поиск по логину" bicon="search" primary/>
-      <button class="nti-button nti-button--transparent" @click="setModal(true)">
+      <button class="nti-button nti-button--transparent" v-if="isUserAdmin" @click="setModal(true)">
         Добавить пользователя
       </button>
     </div>
@@ -40,6 +40,9 @@
           </div>
           <div class="info-tags">
             <div class="info-tag" v-if="user.is_staff">Администратор</div>
+            <div class="info-tag" v-if="user.groups[user.groups.length - 1] && user.groups[user.groups.length - 1] > 5">
+              {{ groupByID[user.groups[user.groups.length - 1]].text }}
+            </div>
           </div>
         </div>
       </div>
@@ -48,7 +51,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 
 import NtiInput from '@/components/NtiInput.vue';
 
@@ -71,6 +74,8 @@ export default {
   },
   computed: {
     ...mapState('users', ['users']),
+    ...mapGetters('session', ['isUserAdmin']),
+    ...mapGetters('users', ['groupByID']),
     filteredUsers() {
       return this.users.filter(user => user.username.indexOf(this.search) === 0);
     },
@@ -140,6 +145,12 @@ export default {
       flex-wrap: wrap;
 
       .info {
+
+        &-tags {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-end;
+        }
 
         &-tag {
           box-sizing: border-box;
