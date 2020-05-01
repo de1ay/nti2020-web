@@ -1,12 +1,12 @@
 <template>
   <div class="chat">
-    <modal v-if="modal" title="Новая группа" @close="setModal()">
+    <modal v-if="modal" title="Новый групповой чат" @close="setModal()">
       <chat-modal/>
     </modal>
     <div class="chats">
       <div class="chats-title">
         <div class="title-text">Чаты</div>
-        <v-icon class="title-action" name="plus"/>
+        <v-icon class="title-action" name="plus" @click="setModal(true)"/>
       </div>
       <div class="chats-rows">
         <div class="chats-row" v-for="chat in groupChats" :key="`group-${chat.id}`"
@@ -40,6 +40,9 @@
         </div>
       </div>
       <div class="active_chat-messages" ref="chatMessages">
+        <div class="active_chat-empty" v-if="activeChat.length === 0">
+          Сообщений нет :(
+        </div>
         <div class="message" v-for="msg in activeChat" :key="msg.id">
           <img class="message-avatar" :src="(userByPrimaryID[msg.sender] && userByPrimaryID[msg.sender].avatar)
             || require('@/assets/images/no_photo.png')"
@@ -136,6 +139,9 @@ export default {
     setModal(modal=false, editableChat=null) {
       this.modal = modal;
       this.editableChat = editableChat;
+      if (!this.modal) {
+        this.getGroupChats();
+      }
     },
     scrollToLastMessage() {
       this.$refs.chatMessages.scrollTop = this.$refs.chatMessages.scrollHeight;
@@ -364,6 +370,10 @@ export default {
       align-items: center;
       background: #fff;
       border-radius: 10px;
+    }
+
+    &-empty {
+      font-family: $bahnschrift;
     }
 
     &-avatar {

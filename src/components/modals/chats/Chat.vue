@@ -1,7 +1,8 @@
 <template>
   <div class="nti-form">
     <nti-input class="nti-12" type="text" label="Название"
-      v-model.trim="chat.name" placeholder="Введите название" primary/>
+      v-model.trim="chat.name" placeholder="Введите название" primary
+      @enter="submit"/>
     <div class="form-actions">
       <button class="nti-button" @click="submit">
         Сохранить изменения
@@ -46,8 +47,7 @@ export default {
     },
     async addChat() {
       try {
-        this.user.avatar = this.file;
-        let user = await this.createChat(this.chat);
+        let user = await this.createChat(this.chat.name);
         this.$toasted.success('Чат создан');
         this.$emit('submit', user);
         this.hideModal();
@@ -57,7 +57,7 @@ export default {
     },
     async editUser() {
       try {
-        await this.updateChat(this.user);
+        await this.updateChat(this.chat);
         this.$toasted.success('Изменения сохранены');
         this.hideModal();
       } catch (err) {
