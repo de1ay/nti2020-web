@@ -29,6 +29,15 @@ Vue.component('v-icon', Icon);
 import { directive as onClickOutside } from 'vue-on-click-outside';
 Vue.directive('on-click-outside', onClickOutside);
 
+import { Map, TileLayer, OsmSource, Feature, PointGeom } from 'vuelayers'
+import 'vuelayers/lib/style.css';
+
+Vue.use(Map);
+Vue.use(Feature);
+Vue.use(PointGeom);
+Vue.use(TileLayer);
+Vue.use(OsmSource);
+
 Vue.config.productionTip = false;
 
 new Vue({

@@ -3,14 +3,14 @@
 
 * {
   scrollbar-width: 4px;
-  scrollbar-color: $primaryLighter #fff;
+  scrollbar-color: $primaryLighter rgba(0, 0, 0, 0);
 
   &::-webkit-scrollbar {
     width: 6px;
   }
 
   &::-webkit-scrollbar-track {
-    background: #fff;
+    background: rgba(0, 0, 0, 0);
   }
 
   &::-webkit-scrollbar-thumb {

@@ -51,10 +51,10 @@
         </div>
         <div class="active_chat-actions" v-if="isGroupChat">
           <v-icon class="active_chat-action" name="users"
-            v-if="activeChatInfo.owner === user.primary_id && activeChatInfo.id !== 1"
+            v-if="activeChatInfo.owner === user.primary_id && activeChatInfo.id !== 3"
             @click="setModal(true, groupChatByID[activeChatInfo.id], false)"/>
           <v-icon class="active_chat-action active_chat-action--small" name="edit"
-            v-if="activeChatInfo.owner === user.primary_id && activeChatInfo.id !== 1"
+            v-if="activeChatInfo.owner === user.primary_id && activeChatInfo.id !== 3"
             @click="setModal(true, groupChatByID[activeChatInfo.id])"/>
           <v-icon class="active_chat-action" v-if="activeChatInfo.notifications" name="volume-up"
             @click="turnNotificationsOff"/>

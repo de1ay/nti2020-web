@@ -8,6 +8,10 @@
       <div class="nti-button" @click="$router.push({ path: `/portal/chat/private/${user.primary_id}` })">
         {{ me.primary_id === user.primary_id ? 'Заметки' : 'Написать сообщение' }}
       </div>
+      <div class="nti-button" v-if="me.primary_id === user.primary_id"
+        @click="goToPushSubscriptionPage">
+        Управление уведомлениями
+      </div>
     </div>
     <div class="profile-info">
       <div class="profile-card profile-full_name">
@@ -62,6 +66,9 @@ export default {
   },
   methods: {
     ...mapActions('users', ['getUser']),
+    goToPushSubscriptionPage() {
+      window.open(`${this.apiUrl}/api/push-subscribe`);
+    },
   },
   watch: {
     $route() {
