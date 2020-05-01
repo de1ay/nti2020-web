@@ -2,8 +2,8 @@ const mutations = {
     setActiveData(state, payload) {
         state.ActiveData = payload;
     },
-    setActiveState(state, payload) {
-        state.ActiveState = payload;
+    setLastData(state, payload) {
+        state.LastData = payload;
     }
 };
 

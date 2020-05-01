@@ -140,7 +140,7 @@ export default {
 
   td, th {
     padding: 14px 24px;
-    color: $surface;
+    color: black;//$surface;
   }
 
   th {

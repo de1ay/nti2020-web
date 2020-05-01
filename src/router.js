@@ -12,6 +12,10 @@ import Chat from '@/views/Chat.vue';
 import Users from '@/views/Users.vue';
 import Profile from '@/views/Profile.vue';
 import Equipment from '@/views/Equipment.vue';
+import Dashboard from "./views/Dashboard";
+import Alerts from "./views/Alerts";
+import MachinesWithCritical from "./views/MachinesWithCritical";
+import MachinesWithWarnings from "./views/MachinesWithWarnings";
 
 Vue.use(VueRouter);
 
@@ -62,7 +66,23 @@ const routes = [{
     }, {
       path: 'equipment',
       name: 'equipment',
+      component: Dashboard,
+    }, {
+      path: 'equipment/:id',
+      name: 'equipment-page',
       component: Equipment,
+    }, {
+      path: 'equipment-alerts/:id',
+      name: 'alerts',
+      component: Alerts,
+    }, {
+      path: 'machines-with-critical',
+      name: 'machines-with-critical',
+      component: MachinesWithCritical,
+    }, {
+      path: 'machines-with-warnings',
+      name: 'machines-with-warnings',
+      component: MachinesWithWarnings,
     }, {
       path: 'users/:page',
       name: 'users',
