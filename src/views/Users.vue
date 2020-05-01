@@ -39,8 +39,8 @@
             </div>
           </div>
           <div class="info-tags">
-            <div class="info-tag" v-if="user.groups[user.groups.length - 1] && user.groups[user.groups.length - 1] > 5">
-              {{ groupByID[user.groups[user.groups.length - 1]].text }}
+            <div class="info-tag" v-if="user.groups && user.groups.length > 1">
+              {{ groupByID[user.groups.length + 4].text }}
             </div>
           </div>
         </div>
